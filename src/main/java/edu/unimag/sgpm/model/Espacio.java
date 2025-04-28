@@ -22,7 +22,7 @@ public class Espacio {
     @JoinColumn(name = "idParqueadero", nullable = false)
     private Parqueadero parqueadero;
 
-    @ManyToOne
-    @JoinColumn(name = "idEstado", nullable = false)
+    @Enumerated(EnumType.STRING)
+    @Column(name = "estado", nullable = false)
     private EstadoDeEspacio estado;
 }

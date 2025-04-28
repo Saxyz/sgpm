@@ -18,7 +18,7 @@ public class Parqueadero {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private Integer id;
+    private Integer idParqueadero;
 
     @Column(nullable = false, length = 250)
     private String nombre;

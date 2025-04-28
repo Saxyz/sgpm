@@ -1,4 +1,4 @@
-package edu.unimag.sgpm.dto.Usuario;
+package edu.unimag.sgpm.dto.usuario;
 
 public record ResponseUsuarioDTO(
         Integer idUsuario,

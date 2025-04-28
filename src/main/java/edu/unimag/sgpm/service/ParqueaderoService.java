@@ -1,8 +1,8 @@
 package edu.unimag.sgpm.service;
 
-import edu.unimag.sgpm.dto.Parqueadero.RequestParqueaderoDTO;
-import edu.unimag.sgpm.dto.Parqueadero.ResponseParqueaderoDTO;
-import edu.unimag.sgpm.dto.Parqueadero.UpdateParqueaderoDTO;
+import edu.unimag.sgpm.dto.parqueadero.RequestParqueaderoDTO;
+import edu.unimag.sgpm.dto.parqueadero.ResponseParqueaderoDTO;
+import edu.unimag.sgpm.dto.parqueadero.UpdateParqueaderoDTO;
 
 import java.util.List;
 

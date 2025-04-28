@@ -1,8 +1,8 @@
 package edu.unimag.sgpm.mapper;
 
-import edu.unimag.sgpm.dto.Usuario.RequestUsuarioDTO;
-import edu.unimag.sgpm.dto.Usuario.ResponseUsuarioDTO;
-import edu.unimag.sgpm.dto.Usuario.UpdateUsuarioDTO;
+import edu.unimag.sgpm.dto.usuario.RequestUsuarioDTO;
+import edu.unimag.sgpm.dto.usuario.ResponseUsuarioDTO;
+import edu.unimag.sgpm.dto.usuario.UpdateUsuarioDTO;
 import edu.unimag.sgpm.model.Usuario;
 import org.mapstruct.*;
 

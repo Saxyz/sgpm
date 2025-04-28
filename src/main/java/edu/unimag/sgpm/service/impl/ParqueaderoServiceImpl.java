@@ -1,8 +1,8 @@
 package edu.unimag.sgpm.service.impl;
 
-import edu.unimag.sgpm.dto.Parqueadero.RequestParqueaderoDTO;
-import edu.unimag.sgpm.dto.Parqueadero.ResponseParqueaderoDTO;
-import edu.unimag.sgpm.dto.Parqueadero.UpdateParqueaderoDTO;
+import edu.unimag.sgpm.dto.parqueadero.RequestParqueaderoDTO;
+import edu.unimag.sgpm.dto.parqueadero.ResponseParqueaderoDTO;
+import edu.unimag.sgpm.dto.parqueadero.UpdateParqueaderoDTO;
 import edu.unimag.sgpm.mapper.ParqueaderoMapper;
 import edu.unimag.sgpm.model.Parqueadero;
 import edu.unimag.sgpm.repository.ParqueaderoRepository;
@@ -12,7 +12,6 @@ import org.springframework.stereotype.Service;
 
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor

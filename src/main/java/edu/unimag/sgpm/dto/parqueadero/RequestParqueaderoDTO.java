@@ -1,4 +1,4 @@
-package edu.unimag.sgpm.dto.Parqueadero;
+package edu.unimag.sgpm.dto.parqueadero;
 
 import jakarta.validation.constraints.NotBlank;
 

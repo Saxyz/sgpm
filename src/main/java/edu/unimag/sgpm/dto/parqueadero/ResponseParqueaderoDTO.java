@@ -1,4 +1,4 @@
-package edu.unimag.sgpm.dto.Parqueadero;
+package edu.unimag.sgpm.dto.parqueadero;
 
 public record ResponseParqueaderoDTO(
         Integer idParqueadero,

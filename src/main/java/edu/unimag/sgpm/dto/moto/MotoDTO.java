@@ -1,4 +1,4 @@
-package edu.unimag.sgpm.dto.Moto;
+package edu.unimag.sgpm.dto.moto;
 
 public record MotoDTO(
         String idMoto,

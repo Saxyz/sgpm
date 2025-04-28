@@ -1,7 +1,7 @@
 package edu.unimag.sgpm.service;
 
-import edu.unimag.sgpm.dto.Moto.RequestMotoDTO;
-import edu.unimag.sgpm.dto.Moto.MotoDTO;
+import edu.unimag.sgpm.dto.moto.RequestMotoDTO;
+import edu.unimag.sgpm.dto.moto.MotoDTO;
 
 import java.util.List;
 

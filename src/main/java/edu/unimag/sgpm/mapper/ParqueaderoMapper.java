@@ -1,8 +1,8 @@
 package edu.unimag.sgpm.mapper;
 
-import edu.unimag.sgpm.dto.Parqueadero.RequestParqueaderoDTO;
-import edu.unimag.sgpm.dto.Parqueadero.ResponseParqueaderoDTO;
-import edu.unimag.sgpm.dto.Parqueadero.UpdateParqueaderoDTO;
+import edu.unimag.sgpm.dto.parqueadero.RequestParqueaderoDTO;
+import edu.unimag.sgpm.dto.parqueadero.ResponseParqueaderoDTO;
+import edu.unimag.sgpm.dto.parqueadero.UpdateParqueaderoDTO;
 import edu.unimag.sgpm.model.Parqueadero;
 import org.mapstruct.*;
 

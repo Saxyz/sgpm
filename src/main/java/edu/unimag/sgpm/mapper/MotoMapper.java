@@ -1,7 +1,7 @@
 package edu.unimag.sgpm.mapper;
 
-import edu.unimag.sgpm.dto.Moto.RequestMotoDTO;
-import edu.unimag.sgpm.dto.Moto.MotoDTO;
+import edu.unimag.sgpm.dto.moto.RequestMotoDTO;
+import edu.unimag.sgpm.dto.moto.MotoDTO;
 import edu.unimag.sgpm.model.Moto;
 import org.mapstruct.*;
 

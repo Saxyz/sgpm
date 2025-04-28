@@ -1,7 +1,7 @@
 package edu.unimag.sgpm.service.impl;
 
-import edu.unimag.sgpm.dto.Moto.RequestMotoDTO;
-import edu.unimag.sgpm.dto.Moto.MotoDTO;
+import edu.unimag.sgpm.dto.moto.RequestMotoDTO;
+import edu.unimag.sgpm.dto.moto.MotoDTO;
 import edu.unimag.sgpm.mapper.MotoMapper;
 import edu.unimag.sgpm.model.Moto;
 import edu.unimag.sgpm.model.Usuario;

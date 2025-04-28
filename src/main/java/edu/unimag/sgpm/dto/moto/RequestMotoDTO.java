@@ -1,4 +1,4 @@
-package edu.unimag.sgpm.dto.Moto;
+package edu.unimag.sgpm.dto.moto;
 
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;

@@ -7,6 +7,6 @@ public record SancionDto(
         Integer sancionado,
         Integer sancionador,
         LocalDate fecha,
-        String description
+        String descripcion
 ) {
 }

@@ -2,11 +2,14 @@ package edu.unimag.sgpm.model;
 
 import jakarta.persistence.*;
 import lombok.*;
+import lombok.experimental.SuperBuilder;
 
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-@Builder
+@SuperBuilder
+@Getter
+@Setter
 @Inheritance(strategy = InheritanceType.JOINED)
 @Entity
 @Table(name = "Usuarios")

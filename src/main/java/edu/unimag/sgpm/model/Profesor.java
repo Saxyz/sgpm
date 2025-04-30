@@ -1,15 +1,13 @@
 package edu.unimag.sgpm.model;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
+import lombok.experimental.SuperBuilder;
 
+@EqualsAndHashCode(callSuper = true)
 @Data
 @AllArgsConstructor
-@NoArgsConstructor
-@Builder
+@SuperBuilder
 @Entity
 @Table(name = "Profesores")
 @PrimaryKeyJoinColumn(name = "idProfesor")

@@ -17,5 +17,7 @@ public interface MotoMapper {
     Moto toEntity(RequestMotoDTO dto);
 
     @BeanMapping(nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)
+    @Mapping(source = "idUsuario", target = "usuario.idUsuario")
+    @Mapping(source = "idParqueadero", target = "parqueadero.idParqueadero")
     Moto updateEntityFromDto(MotoDTO dto, @MappingTarget Moto moto);
 }

@@ -9,6 +9,7 @@ import org.mapstruct.*;
 @Mapper(componentModel = "spring")
 public interface ParqueaderoMapper {
 
+    @Mapping(source = "idParqueadero", target = "idParqueadero")
     ResponseParqueaderoDTO toDto(Parqueadero parqueadero);
 
     Parqueadero toEntity(RequestParqueaderoDTO dto);

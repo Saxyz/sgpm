@@ -15,6 +15,7 @@ public interface UsuarioMapper {
     @Mapping(source = "idParqueadero", target = "parqueadero.idParqueadero")
     Usuario toEntity(RequestUsuarioDTO dto);
 
+    @Mapping(source = "idParqueadero", target = "parqueadero.idParqueadero")
     @BeanMapping(nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)
     Usuario updateEntityFromDto(UpdateUsuarioDTO dto, @MappingTarget Usuario usuario);
 }

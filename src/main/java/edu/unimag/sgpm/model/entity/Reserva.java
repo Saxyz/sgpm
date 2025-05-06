@@ -19,8 +19,8 @@ public class Reserva {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer idReserva;
 
-    @Enumerated(EnumType.STRING)
-    @Column(name = "estado", nullable = false)
+    @ManyToOne
+    @JoinColumn(name = "idEstado", nullable = false)
     private EstadoDeReserva estado;
 
     @ManyToOne

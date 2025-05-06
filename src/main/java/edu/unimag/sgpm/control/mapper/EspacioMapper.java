@@ -11,10 +11,12 @@ import java.util.List;
 public interface EspacioMapper {
     @Mapping(source = "idEspacio", target = "id")
     @Mapping(source = "parqueadero.idParqueadero", target = "parqueadero")
+    @Mapping(source = "estado.idEstado", target = "estado")
     EspacioDto toDto(Espacio espacio);
 
     @Mapping(source = "id", target = "idEspacio")
     @Mapping(source = "parqueadero", target = "parqueadero.idParqueadero")
+    @Mapping(source = "estado", target = "estado.idEstado")
     Espacio toEntity(EspacioDto espacioDto);
 
     List<Espacio> toEntities(List<EspacioDto> espacioDtos);

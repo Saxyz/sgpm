@@ -6,8 +6,8 @@ import java.util.List;
 
 public interface SancionService {
     SancionDto createSancion(SancionDto sancion);
-    SancionDto findSancionById(int id);
+    SancionDto findSancionById(Integer id);
     List<SancionDto> findAllSancion();
-    SancionDto updateSancionById(SancionDto sancion);
-    void deleteSancionById(int id);
+    SancionDto updateSancionById(Integer id, SancionDto sancion);
+    void deleteSancionById(Integer id);
 }

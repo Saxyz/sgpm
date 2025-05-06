@@ -6,8 +6,8 @@ import java.util.List;
 
 public interface ReservaService {
     ReservaDto createReserva(ReservaDto reserva);
-    ReservaDto findReservaById(int id);
+    ReservaDto findReservaById(Integer id);
     List<ReservaDto> findAllReservas();
-    ReservaDto updateReservaById(ReservaDto reserva);
-    void deleteReservaById(int id);
+    ReservaDto updateReservaById(Integer id, ReservaDto reserva);
+    void deleteReservaById(Integer id);
 }

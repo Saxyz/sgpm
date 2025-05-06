@@ -6,8 +6,8 @@ import java.util.List;
 
 public interface RegistroService {
     RegistroDto createRegistro(RegistroDto registro);
-    RegistroDto findRegistroById(int id);
+    RegistroDto findRegistroById(Integer id);
     List<RegistroDto> findAllRegistros();
-    RegistroDto updateRegistroById(int id, RegistroDto registro);
+    RegistroDto updateRegistroById(Integer id, RegistroDto registro);
     void deleteRegistroById(int id);
 }

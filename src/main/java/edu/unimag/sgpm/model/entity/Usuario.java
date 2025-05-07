@@ -4,6 +4,8 @@ import jakarta.persistence.*;
 import lombok.*;
 import lombok.experimental.SuperBuilder;
 
+import java.util.Set;
+
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
@@ -28,4 +30,14 @@ public class Usuario {
 
     @Column(nullable = false, length = 250)
     private String apellido;
+
+    @Column(nullable = false)
+    private String correo;
+
+    @Column(nullable = false)
+    private String contrasenia;
+
+    @OneToMany
+    @Column(nullable = false)
+    private Set<Role> roles;
 }

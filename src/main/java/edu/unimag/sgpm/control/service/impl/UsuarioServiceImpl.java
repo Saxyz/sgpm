@@ -5,6 +5,7 @@ import edu.unimag.sgpm.control.dto.usuario.ResponseUsuarioDTO;
 import edu.unimag.sgpm.control.dto.usuario.UpdateUsuarioDTO;
 import edu.unimag.sgpm.control.mapper.UsuarioMapper;
 import edu.unimag.sgpm.model.entity.Parqueadero;
+import edu.unimag.sgpm.model.entity.Role;
 import edu.unimag.sgpm.model.entity.Usuario;
 import edu.unimag.sgpm.model.repository.ParqueaderoRepository;
 import edu.unimag.sgpm.model.repository.UsuarioRepository;
@@ -13,6 +14,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 @Service
@@ -41,6 +43,11 @@ public class UsuarioServiceImpl implements UsuarioService {
         Usuario usuario = usuarioRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Usuario no encontrado"));
         return usuarioMapper.toDto(usuario);
+    }
+
+    @Override
+    public ResponseUsuarioDTO findUsuarioByRoles(Set<Role> roles) {
+        return usuarioMapper.toDto(usuarioRepository.findByRoles(roles).orElseThrow(() -> new RuntimeException("Usuario no encontrado")));
     }
 
     @Override

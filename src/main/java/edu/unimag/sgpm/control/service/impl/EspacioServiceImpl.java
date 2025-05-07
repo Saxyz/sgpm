@@ -10,7 +10,6 @@ import edu.unimag.sgpm.model.repository.EspacioRepository;
 import edu.unimag.sgpm.model.repository.EstadoEspacioRepository;
 import edu.unimag.sgpm.model.repository.ParqueaderoRepository;
 import lombok.RequiredArgsConstructor;
-import org.jetbrains.annotations.NotNull;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -24,7 +23,7 @@ public class EspacioServiceImpl implements EspacioService {
     private final EspacioRepository espacioRepository;
 
     @Override
-    public EspacioDto createEspacio(@NotNull EspacioDto espacioDto) {
+    public EspacioDto createEspacio(EspacioDto espacioDto) {
         Parqueadero parqueadero = parqueaderoRepository.findById(espacioDto.parqueadero())
                 .orElseThrow(() -> new RuntimeException("Parqueadero no encontrado"));
         EstadoDeEspacio estado = estadoEspacioRepository.findById(espacioDto.estado())
@@ -45,7 +44,7 @@ public class EspacioServiceImpl implements EspacioService {
     }
 
     @Override
-    public EspacioDto updateEspacio(String id, @NotNull EspacioDto espacio) {
+    public EspacioDto updateEspacio(String id, EspacioDto espacio) {
         Espacio antiguo = espacioRepository.findById(id).orElseThrow(() -> new RuntimeException("Espacio no encontrado"));
         antiguo.setEstado(estadoEspacioRepository.findById(espacio.estado()).orElseThrow(() -> new RuntimeException("Estado no encontrado")));
         antiguo.setParqueadero(parqueaderoRepository.findById(espacio.parqueadero()).orElseThrow(() -> new RuntimeException("Parqueadero no encontrado")));

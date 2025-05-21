@@ -1,6 +1,6 @@
 package edu.unimag.sgpm.control.mapper;
 
-import edu.unimag.sgpm.control.dto.sancion.SancionDto;
+import edu.unimag.sgpm.control.dto.SancionDto;
 import edu.unimag.sgpm.model.entity.Sancion;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;

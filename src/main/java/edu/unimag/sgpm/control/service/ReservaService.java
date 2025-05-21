@@ -1,6 +1,6 @@
 package edu.unimag.sgpm.control.service;
 
-import edu.unimag.sgpm.control.dto.reserva.ReservaDto;
+import edu.unimag.sgpm.control.dto.ReservaDto;
 
 import java.util.List;
 

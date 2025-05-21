@@ -1,6 +1,5 @@
 package edu.unimag.sgpm.control.controller;
-import edu.unimag.sgpm.control.dto.usuario.ResponseUsuarioDTO;
-import edu.unimag.sgpm.control.dto.usuario.UpdateUsuarioDTO;
+import edu.unimag.sgpm.control.dto.UsuarioDto;
 import edu.unimag.sgpm.control.exceptions.EspacioNotFoundException;
 import edu.unimag.sgpm.control.service.UsuarioService;
 import jakarta.validation.constraints.NotNull;
@@ -18,13 +17,13 @@ public class UsuarioController {
         this.usuarioService = usuarioService;
     }
     @GetMapping()
-    public ResponseEntity<List<ResponseUsuarioDTO>> getAllUsuarios() {
+    public ResponseEntity<List<UsuarioDto>> getAllUsuarios() {
         return ResponseEntity.ok(usuarioService.findAllUsuarios());
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<ResponseUsuarioDTO> getUsuarioById(@PathVariable Integer id) {
-        ResponseUsuarioDTO usuario = usuarioService.findUsuarioById(id);
+    public ResponseEntity<UsuarioDto> getUsuarioById(@PathVariable Integer id) {
+        UsuarioDto usuario = usuarioService.findUsuarioById(id);
         if (usuario == null) {
             throw new EspacioNotFoundException("usuario no encontrado: " + id);
         }
@@ -32,17 +31,17 @@ public class UsuarioController {
     }
 
     @PostMapping()
-    public ResponseEntity<ResponseUsuarioDTO> createUsuario(@RequestBody ResponseUsuarioDTO usuario) {
+    public ResponseEntity<UsuarioDto> createUsuario(@RequestBody UsuarioDto usuario) {
         return createNewUsuario(usuario);
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<ResponseUsuarioDTO> updatespacio(@PathVariable Integer id, @RequestBody UpdateUsuarioDTO usuario) {
+    public ResponseEntity<UsuarioDto> updatespacio(@PathVariable Integer id, @RequestBody UsuarioDto usuario) {
         try {
-            ResponseUsuarioDTO updatedUsuario = usuarioService.updateUsuarioById(id,usuario);
+            UsuarioDto updatedUsuario = usuarioService.updateUsuarioById(id,usuario);
             return ResponseEntity.ok(updatedUsuario);
         } catch (RuntimeException e) {
-            ResponseUsuarioDTO nuevoUsuario = new ResponseUsuarioDTO(id,usuario.nombre(),usuario.apellido(),usuario.idParqueadero());
+            UsuarioDto nuevoUsuario = new UsuarioDto(usuario.id(), usuario.parqueadero(), usuario.nombre(), usuario.apellido(), usuario.correo(), usuario.contrasenia(), usuario.roles());
             return createNewUsuario(nuevoUsuario);
         }
     }
@@ -54,11 +53,11 @@ public class UsuarioController {
     }
 
     @NotNull
-    private static ResponseEntity<ResponseUsuarioDTO> createNewUsuario(ResponseUsuarioDTO c) {
+    private static ResponseEntity<UsuarioDto> createNewUsuario(UsuarioDto c) {
         URI location = ServletUriComponentsBuilder
                 .fromCurrentRequest()
                 .path("/{id}")
-                .buildAndExpand(c.idUsuario())
+                .buildAndExpand(c.id())
                 .toUri();
         return ResponseEntity.created(location).body(c);
     }

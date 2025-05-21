@@ -1,6 +1,6 @@
 package edu.unimag.sgpm.control.service;
 
-import edu.unimag.sgpm.control.dto.registro.RegistroDto;
+import edu.unimag.sgpm.control.dto.RegistroDto;
 
 import java.util.List;
 

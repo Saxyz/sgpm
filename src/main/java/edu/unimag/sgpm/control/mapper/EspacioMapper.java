@@ -1,6 +1,6 @@
 package edu.unimag.sgpm.control.mapper;
 
-import edu.unimag.sgpm.control.dto.espacio.EspacioDto;
+import edu.unimag.sgpm.control.dto.EspacioDto;
 import edu.unimag.sgpm.model.entity.Espacio;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;

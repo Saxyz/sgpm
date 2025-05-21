@@ -1,6 +1,6 @@
 package edu.unimag.sgpm.control.service;
 
-import edu.unimag.sgpm.control.dto.estadoEspacio.EstadoEspacioDto;
+import edu.unimag.sgpm.control.dto.EstadoEspacioDto;
 
 import java.util.List;
 

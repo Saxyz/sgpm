@@ -1,6 +1,6 @@
 package edu.unimag.sgpm.control.service.impl;
 
-import edu.unimag.sgpm.control.dto.sancion.SancionDto;
+import edu.unimag.sgpm.control.dto.SancionDto;
 import edu.unimag.sgpm.control.mapper.SancionMapperImpl;
 import edu.unimag.sgpm.control.service.SancionService;
 import edu.unimag.sgpm.model.entity.Administrador;

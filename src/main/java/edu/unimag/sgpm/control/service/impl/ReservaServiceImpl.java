@@ -1,6 +1,6 @@
 package edu.unimag.sgpm.control.service.impl;
 
-import edu.unimag.sgpm.control.dto.reserva.ReservaDto;
+import edu.unimag.sgpm.control.dto.ReservaDto;
 import edu.unimag.sgpm.control.mapper.ReservaMapperImpl;
 import edu.unimag.sgpm.control.service.ReservaService;
 import edu.unimag.sgpm.model.entity.Espacio;

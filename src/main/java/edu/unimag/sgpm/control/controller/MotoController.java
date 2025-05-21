@@ -1,5 +1,5 @@
 package edu.unimag.sgpm.control.controller;
-import edu.unimag.sgpm.control.dto.moto.MotoDTO;
+import edu.unimag.sgpm.control.dto.MotoDto;
 import edu.unimag.sgpm.control.exceptions.EspacioNotFoundException;
 import edu.unimag.sgpm.control.service.MotoService;
 import jakarta.validation.constraints.NotNull;
@@ -18,13 +18,13 @@ public class MotoController {
     }
 
     @GetMapping()
-    public ResponseEntity<List<MotoDTO>> getAllMotos() {
+    public ResponseEntity<List<MotoDto>> getAllMotos() {
         return ResponseEntity.ok(motoService.findAllMotos());
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<MotoDTO> getMotoById(@PathVariable String id) {
-        MotoDTO espacio = motoService.findMotoById(id);
+    public ResponseEntity<MotoDto> getMotoById(@PathVariable String id) {
+        MotoDto espacio = motoService.findMotoById(id);
         if (espacio == null) {
             throw new EspacioNotFoundException("Espacio no encontrado: " + id);
         }
@@ -32,14 +32,14 @@ public class MotoController {
     }
 
     @PostMapping()
-    public ResponseEntity<MotoDTO> createMoto(@RequestBody MotoDTO Espacio) {
+    public ResponseEntity<MotoDto> createMoto(@RequestBody MotoDto Espacio) {
         return createNewMoto(Espacio);
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<MotoDTO> updateMoto(@PathVariable String id, @RequestBody MotoDTO moto) {
+    public ResponseEntity<MotoDto> updateMoto(@PathVariable String id, @RequestBody MotoDto moto) {
         try {
-            MotoDTO updatedEspacio = motoService.updateMotoById(id, moto);
+            MotoDto updatedEspacio = motoService.updateMotoById(id, moto);
             return ResponseEntity.ok(updatedEspacio);
         } catch (RuntimeException e) {
             return createNewMoto(moto); // Si no existe, créalo
@@ -53,7 +53,7 @@ public class MotoController {
     }
 
     @NotNull
-    private static ResponseEntity<MotoDTO> createNewMoto(MotoDTO c) {
+    private static ResponseEntity<MotoDto> createNewMoto(MotoDto c) {
         URI location = ServletUriComponentsBuilder
                 .fromCurrentRequest()
                 .path("/{id}")

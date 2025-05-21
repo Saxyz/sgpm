@@ -1,6 +1,6 @@
 package edu.unimag.sgpm.control.service.impl;
 
-import edu.unimag.sgpm.control.dto.espacio.EspacioDto;
+import edu.unimag.sgpm.control.dto.EspacioDto;
 import edu.unimag.sgpm.control.mapper.EspacioMapperImpl;
 import edu.unimag.sgpm.control.service.EspacioService;
 import edu.unimag.sgpm.model.entity.Espacio;

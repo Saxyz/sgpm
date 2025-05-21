@@ -1,6 +1,5 @@
 package edu.unimag.sgpm.control.controller;
-import edu.unimag.sgpm.control.dto.parqueadero.ResponseParqueaderoDTO;
-import edu.unimag.sgpm.control.dto.parqueadero.UpdateParqueaderoDTO;
+import edu.unimag.sgpm.control.dto.ParqueaderoDto;
 import edu.unimag.sgpm.control.exceptions.EspacioNotFoundException;
 import edu.unimag.sgpm.control.service.ParqueaderoService;
 import jakarta.validation.constraints.NotNull;
@@ -19,13 +18,13 @@ public class ParqueaderoController {
     }
 
     @GetMapping()
-    public ResponseEntity<List<ResponseParqueaderoDTO>> getAllParqueaderos() {
+    public ResponseEntity<List<ParqueaderoDto>> getAllParqueaderos() {
         return ResponseEntity.ok(parqueaderoService.findAllParqueaderos());
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<ResponseParqueaderoDTO> getParqueaderoById(@PathVariable Integer id) {
-        ResponseParqueaderoDTO parqueadero = parqueaderoService.findParqueaderoById(id);
+    public ResponseEntity<ParqueaderoDto> getParqueaderoById(@PathVariable Integer id) {
+        ParqueaderoDto parqueadero = parqueaderoService.findParqueaderoById(id);
         if (parqueadero == null) {
             throw new EspacioNotFoundException("parqueadero no encontrado: " + id);
         }
@@ -33,17 +32,17 @@ public class ParqueaderoController {
     }
 
     @PostMapping()
-    public ResponseEntity<ResponseParqueaderoDTO> createParqueadero(@RequestBody ResponseParqueaderoDTO parqueadero) {
+    public ResponseEntity<ParqueaderoDto> createParqueadero(@RequestBody ParqueaderoDto parqueadero) {
         return createNewParqueadero(parqueadero);
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<ResponseParqueaderoDTO> updatespacio(@PathVariable Integer id, @RequestBody UpdateParqueaderoDTO parqueadero) {
+    public ResponseEntity<ParqueaderoDto> updatespacio(@PathVariable Integer id, @RequestBody ParqueaderoDto parqueadero) {
         try {
-            ResponseParqueaderoDTO updatedParqueadero = parqueaderoService.updateParqueaderoById(id, parqueadero);
+            ParqueaderoDto updatedParqueadero = parqueaderoService.updateParqueaderoById(id, parqueadero);
             return ResponseEntity.ok(updatedParqueadero);
         } catch (RuntimeException e) {
-            ResponseParqueaderoDTO nuevoParqueadero = new ResponseParqueaderoDTO(id, parqueadero.nombre());
+            ParqueaderoDto nuevoParqueadero = new ParqueaderoDto(id, parqueadero.nombre(),parqueadero.espacios());
             return createNewParqueadero(nuevoParqueadero);
         }
     }
@@ -55,11 +54,11 @@ public class ParqueaderoController {
     }
 
     @NotNull
-    private static ResponseEntity<ResponseParqueaderoDTO> createNewParqueadero(ResponseParqueaderoDTO c) {
+    private static ResponseEntity<ParqueaderoDto> createNewParqueadero(ParqueaderoDto c) {
         URI location = ServletUriComponentsBuilder
                 .fromCurrentRequest()
                 .path("/{id}")
-                .buildAndExpand(c.idParqueadero())
+                .buildAndExpand(c.id())
                 .toUri();
         return ResponseEntity.created(location).body(c);
     }

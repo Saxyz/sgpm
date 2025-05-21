@@ -1,6 +1,6 @@
 package edu.unimag.sgpm.control.mapper;
 
-import edu.unimag.sgpm.control.dto.registro.RegistroDto;
+import edu.unimag.sgpm.control.dto.RegistroDto;
 import edu.unimag.sgpm.model.entity.Registro;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;

@@ -1,5 +1,5 @@
 package edu.unimag.sgpm.control.controller;
-import edu.unimag.sgpm.control.dto.registro.RegistroDto;
+import edu.unimag.sgpm.control.dto.RegistroDto;
 import edu.unimag.sgpm.control.exceptions.EspacioNotFoundException;
 import edu.unimag.sgpm.control.service.RegistroService;
 import jakarta.validation.constraints.NotNull;

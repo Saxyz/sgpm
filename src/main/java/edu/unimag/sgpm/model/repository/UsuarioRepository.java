@@ -11,8 +11,6 @@ import java.util.Set;
 @Repository
 public interface UsuarioRepository extends JpaRepository<Usuario, Integer> {
     Optional<Usuario> findByRoles(Set<Role> roles);
-    Optional<Usuario> findByUsername(String username);
     Optional<Usuario> findByCorreo(String correo);
-    boolean existsUserByUsername(String username);
-    boolean existsUserByEmail(String email);
+    boolean existsUserByCorreo(String email);
 }

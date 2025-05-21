@@ -1,6 +1,6 @@
 package edu.unimag.sgpm.control.mapper;
 
-import edu.unimag.sgpm.control.dto.estadoEspacio.EstadoEspacioDto;
+import edu.unimag.sgpm.control.dto.EstadoEspacioDto;
 import edu.unimag.sgpm.model.entity.EstadoDeEspacio;
 import org.mapstruct.Mapper;
 

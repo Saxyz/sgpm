@@ -1,19 +1,18 @@
 package edu.unimag.sgpm.control.service;
 
-import edu.unimag.sgpm.control.dto.moto.RequestMotoDTO;
-import edu.unimag.sgpm.control.dto.moto.MotoDTO;
+import edu.unimag.sgpm.control.dto.MotoDto;
 
 import java.util.List;
 
 public interface MotoService {
 
-    MotoDTO createMoto(RequestMotoDTO request);
+    MotoDto createMoto(MotoDto request);
 
-    MotoDTO findMotoById(String id);
+    MotoDto findMotoById(String id);
 
-    List<MotoDTO> findAllMotos();
+    List<MotoDto> findAllMotos();
 
-    MotoDTO updateMotoById(String id, MotoDTO request);
+    MotoDto updateMotoById(String id, MotoDto request);
 
     void deleteMotoById(String id);
 }

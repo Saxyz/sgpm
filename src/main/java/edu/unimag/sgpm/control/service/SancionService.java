@@ -1,6 +1,6 @@
 package edu.unimag.sgpm.control.service;
 
-import edu.unimag.sgpm.control.dto.sancion.SancionDto;
+import edu.unimag.sgpm.control.dto.SancionDto;
 
 import java.util.List;
 

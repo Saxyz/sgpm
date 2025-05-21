@@ -1,8 +1,8 @@
 package edu.unimag.sgpm.control.controller;
 
-import edu.unimag.sgpm.control.dto.JwtResponse.JwtResponse;
-import edu.unimag.sgpm.control.dto.LoginRequest.LoginRequest;
-import edu.unimag.sgpm.control.dto.SignUpRequest.SignUpRequest;
+import edu.unimag.sgpm.control.dto.JwtResponse;
+import edu.unimag.sgpm.control.dto.LoginRequest;
+import edu.unimag.sgpm.control.dto.SignUpRequest;
 import edu.unimag.sgpm.control.security.jwt.JwtUtil;
 import edu.unimag.sgpm.control.security.service.UserDetailsImpl;
 import edu.unimag.sgpm.model.entity.ERole;
@@ -10,7 +10,7 @@ import edu.unimag.sgpm.model.entity.Role;
 import edu.unimag.sgpm.model.entity.Usuario;
 import edu.unimag.sgpm.model.repository.RoleRepository;
 import edu.unimag.sgpm.model.repository.UsuarioRepository;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -31,21 +31,13 @@ import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/api/v1/auth")
+@AllArgsConstructor
 public class AuthenticationController {
 
-    @Autowired
     private PasswordEncoder passwordEncoder;
-
-    @Autowired
     private AuthenticationManager authenticationManager;
-
-    @Autowired
     private JwtUtil jwtUtil;
-
-    @Autowired
     private UsuarioRepository userRepository;
-
-    @Autowired
     private RoleRepository roleRepository;
 
     @PostMapping("/login")
@@ -85,19 +77,15 @@ public class AuthenticationController {
     public ResponseEntity<?> registerUser(@RequestBody SignUpRequest sRequest) {
         try {
             // Validaciones de usuario/email existente
-            if (userRepository.existsUserByUsername(sRequest.username())) {
-                return ResponseEntity.status(HttpStatus.CONFLICT)
-                        .body("Error: El nombre de usuario ya está en uso.");
-            }
 
-            if (userRepository.existsUserByEmail(sRequest.email())) {
+            if (userRepository.existsUserByCorreo(sRequest.email())) {
                 return ResponseEntity.status(HttpStatus.CONFLICT)
                         .body("Error: El correo electrónico ya está en uso.");
             }
 
             // Obtener el rol solicitado
             ERole requestedRole = sRequest.rol().getRole();
-            Role role = roleRepository.findByName(requestedRole)
+            Role role = roleRepository.findByRole(requestedRole)
                     .orElseThrow(() -> new RuntimeException("Rol no encontrado: " + requestedRole));
 
             // Crear y guardar el usuario

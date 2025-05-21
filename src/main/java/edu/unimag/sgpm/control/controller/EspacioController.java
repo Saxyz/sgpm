@@ -1,6 +1,6 @@
 package edu.unimag.sgpm.control.controller;
 
-import edu.unimag.sgpm.control.dto.espacio.EspacioDto;
+import edu.unimag.sgpm.control.dto.EspacioDto;
 import edu.unimag.sgpm.control.exceptions.EspacioNotFoundException;
 import edu.unimag.sgpm.control.service.EspacioService;
 import jakarta.validation.constraints.NotNull;

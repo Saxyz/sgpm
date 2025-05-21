@@ -1,7 +1,6 @@
 package edu.unimag.sgpm.control.service.impl;
 
-import edu.unimag.sgpm.control.dto.moto.RequestMotoDTO;
-import edu.unimag.sgpm.control.dto.moto.MotoDTO;
+import edu.unimag.sgpm.control.dto.MotoDto;
 import edu.unimag.sgpm.control.mapper.MotoMapper;
 import edu.unimag.sgpm.model.entity.Moto;
 import edu.unimag.sgpm.model.entity.Usuario;
@@ -25,7 +24,7 @@ public class MotoServiceImpl implements MotoService {
     private final MotoMapper motoMapper;
 
     @Override
-    public MotoDTO createMoto(RequestMotoDTO request) {
+    public MotoDto createMoto(MotoDto request) {
         Usuario usuario = usuarioRepository.findById(request.idUsuario())
                 .orElseThrow(() -> new RuntimeException("Usuario no encontrado"));
         Parqueadero parqueadero = parqueaderoRepository.findById(request.idParqueadero())
@@ -41,30 +40,31 @@ public class MotoServiceImpl implements MotoService {
     }
 
     @Override
-    public MotoDTO findMotoById(String id) {
+    public MotoDto findMotoById(String id) {
         Moto moto = motoRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Moto no encontrada"));
         return motoMapper.toDto(moto);
     }
 
     @Override
-    public List<MotoDTO> findAllMotos() {
+    public List<MotoDto> findAllMotos() {
         List<Moto> motos = motoRepository.findAll();
         return motos.stream()
                 .map(motoMapper::toDto).toList();
     }
 
     @Override
-    public MotoDTO updateMotoById(String id, MotoDTO request) {
-        Moto moto = motoRepository.findById(id)
+    public MotoDto updateMotoById(String id, MotoDto request) {
+        motoRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Moto no encontrada"));
+        Moto moto;
 
         Usuario usuario = usuarioRepository.findById(request.idUsuario())
                 .orElseThrow(() -> new RuntimeException("Usuario no encontrado"));
         Parqueadero parqueadero = parqueaderoRepository.findById(request.idParqueadero())
                 .orElseThrow(() -> new RuntimeException("Parqueadero no encontrado"));
 
-        motoMapper.updateEntityFromDto(request, moto);
+        moto = motoMapper.toEntity(request);
         moto.setUsuario(usuario);
         moto.setParqueadero(parqueadero);
 

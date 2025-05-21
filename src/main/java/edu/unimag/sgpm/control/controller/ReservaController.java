@@ -1,5 +1,5 @@
 package edu.unimag.sgpm.control.controller;
-import edu.unimag.sgpm.control.dto.reserva.ReservaDto;
+import edu.unimag.sgpm.control.dto.ReservaDto;
 import edu.unimag.sgpm.control.exceptions.EspacioNotFoundException;
 import edu.unimag.sgpm.control.service.ReservaService;
 import jakarta.validation.constraints.NotNull;

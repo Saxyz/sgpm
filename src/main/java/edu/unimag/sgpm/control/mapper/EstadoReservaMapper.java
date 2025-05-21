@@ -1,6 +1,6 @@
 package edu.unimag.sgpm.control.mapper;
 
-import edu.unimag.sgpm.control.dto.estadoReserva.EstadoReservaDto;
+import edu.unimag.sgpm.control.dto.EstadoReservaDto;
 import edu.unimag.sgpm.model.entity.EstadoDeReserva;
 import org.mapstruct.Mapper;
 

@@ -1,6 +1,6 @@
 package edu.unimag.sgpm.control.service.impl;
 
-import edu.unimag.sgpm.control.dto.registro.RegistroDto;
+import edu.unimag.sgpm.control.dto.RegistroDto;
 import edu.unimag.sgpm.control.mapper.RegistroMapperImpl;
 import edu.unimag.sgpm.control.service.RegistroService;
 import edu.unimag.sgpm.model.entity.Espacio;

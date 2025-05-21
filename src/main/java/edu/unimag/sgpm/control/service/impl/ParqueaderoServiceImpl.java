@@ -1,8 +1,6 @@
 package edu.unimag.sgpm.control.service.impl;
 
-import edu.unimag.sgpm.control.dto.parqueadero.RequestParqueaderoDTO;
-import edu.unimag.sgpm.control.dto.parqueadero.ResponseParqueaderoDTO;
-import edu.unimag.sgpm.control.dto.parqueadero.UpdateParqueaderoDTO;
+import edu.unimag.sgpm.control.dto.ParqueaderoDto;
 import edu.unimag.sgpm.control.mapper.ParqueaderoMapper;
 import edu.unimag.sgpm.model.entity.Parqueadero;
 import edu.unimag.sgpm.model.repository.ParqueaderoRepository;
@@ -21,32 +19,33 @@ public class ParqueaderoServiceImpl implements ParqueaderoService {
     private final ParqueaderoMapper parqueaderoMapper;
 
     @Override
-    public ResponseParqueaderoDTO createParqueadero(RequestParqueaderoDTO request) {
+    public ParqueaderoDto createParqueadero(ParqueaderoDto request) {
         Parqueadero parqueadero = parqueaderoMapper.toEntity(request);
         Parqueadero savedParqueadero = parqueaderoRepository.save(parqueadero);
         return parqueaderoMapper.toDto(savedParqueadero);
     }
 
     @Override
-    public ResponseParqueaderoDTO findParqueaderoById(Integer id) {
+    public ParqueaderoDto findParqueaderoById(Integer id) {
         Parqueadero parqueadero = parqueaderoRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Parqueadero no encontrado"));
         return parqueaderoMapper.toDto(parqueadero);
     }
 
     @Override
-    public List<ResponseParqueaderoDTO> findAllParqueaderos() {
+    public List<ParqueaderoDto> findAllParqueaderos() {
         List<Parqueadero> parqueaderos = parqueaderoRepository.findAll();
         return parqueaderos.stream()
                 .map(parqueaderoMapper::toDto).toList();
     }
 
     @Override
-    public ResponseParqueaderoDTO updateParqueaderoById(Integer id, UpdateParqueaderoDTO request) {
-        Parqueadero parqueadero = parqueaderoRepository.findById(id)
+    public ParqueaderoDto updateParqueaderoById(Integer id, ParqueaderoDto request) {
+        parqueaderoRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Parqueadero no encontrado"));
+        Parqueadero parqueadero;
 
-        parqueaderoMapper.updateEntityFromDto(request, parqueadero);
+        parqueadero = parqueaderoMapper.toEntity(request);
 
         Parqueadero updatedParqueadero = parqueaderoRepository.save(parqueadero);
         return parqueaderoMapper.toDto(updatedParqueadero);

@@ -1,8 +1,6 @@
 package edu.unimag.sgpm.control.service.impl;
 
-import edu.unimag.sgpm.control.dto.usuario.RequestUsuarioDTO;
-import edu.unimag.sgpm.control.dto.usuario.ResponseUsuarioDTO;
-import edu.unimag.sgpm.control.dto.usuario.UpdateUsuarioDTO;
+import edu.unimag.sgpm.control.dto.UsuarioDto;
 import edu.unimag.sgpm.control.mapper.UsuarioMapper;
 import edu.unimag.sgpm.model.entity.Parqueadero;
 import edu.unimag.sgpm.model.entity.Role;
@@ -26,10 +24,10 @@ public class UsuarioServiceImpl implements UsuarioService {
     private final UsuarioMapper usuarioMapper;
 
     @Override
-    public ResponseUsuarioDTO createUsuario(RequestUsuarioDTO request) {
+    public UsuarioDto createUsuario(UsuarioDto request) {
         Usuario usuario = usuarioMapper.toEntity(request);
 
-        Parqueadero parqueadero = parqueaderoRepository.findById(request.idParqueadero())
+        Parqueadero parqueadero = parqueaderoRepository.findById(request.parqueadero())
                 .orElseThrow(() -> new RuntimeException("Parqueadero no encontrado"));
 
         usuario.setParqueadero(parqueadero);
@@ -39,19 +37,19 @@ public class UsuarioServiceImpl implements UsuarioService {
     }
 
     @Override
-    public ResponseUsuarioDTO findUsuarioById(Integer id) {
+    public UsuarioDto findUsuarioById(Integer id) {
         Usuario usuario = usuarioRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Usuario no encontrado"));
         return usuarioMapper.toDto(usuario);
     }
 
     @Override
-    public ResponseUsuarioDTO findUsuarioByRoles(Set<Role> roles) {
+    public UsuarioDto findUsuarioByRoles(Set<Role> roles) {
         return usuarioMapper.toDto(usuarioRepository.findByRoles(roles).orElseThrow(() -> new RuntimeException("Usuario no encontrado")));
     }
 
     @Override
-    public List<ResponseUsuarioDTO> findAllUsuarios() {
+    public List<UsuarioDto> findAllUsuarios() {
         return usuarioRepository.findAll()
                 .stream()
                 .map(usuarioMapper::toDto)
@@ -59,14 +57,15 @@ public class UsuarioServiceImpl implements UsuarioService {
     }
 
     @Override
-    public ResponseUsuarioDTO updateUsuarioById(Integer id, UpdateUsuarioDTO request) {
-        Usuario usuario = usuarioRepository.findById(id)
+    public UsuarioDto updateUsuarioById(Integer id, UsuarioDto request) {
+        usuarioRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Usuario no encontrado"));
+        Usuario usuario;
 
-        usuarioMapper.updateEntityFromDto(request, usuario);
+        usuario = usuarioMapper.toEntity(request);
 
-        if (request.idParqueadero() != null) {
-            Parqueadero parqueadero = parqueaderoRepository.findById(request.idParqueadero())
+        if (request.parqueadero() != null) {
+            Parqueadero parqueadero = parqueaderoRepository.findById(request.parqueadero())
                     .orElseThrow(() -> new RuntimeException("Parqueadero no encontrado"));
             usuario.setParqueadero(parqueadero);
         }

@@ -19,9 +19,11 @@ import org.springframework.web.filter.OncePerRequestFilter;
 import java.io.IOException;
 
 @Component
-@AllArgsConstructor(onConstructor = @__(@Autowired))
 public class AuthTokenFilter extends OncePerRequestFilter {
+    @Autowired
     private JwtUtil jwtUtil;
+
+    @Autowired
     UserDetailsService userDetailsService;
 
     @Override

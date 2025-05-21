@@ -1,7 +1,7 @@
 package edu.unimag.sgpm.control.service.impl;
 
 import edu.unimag.sgpm.control.dto.SancionDto;
-import edu.unimag.sgpm.control.mapper.SancionMapperImpl;
+import edu.unimag.sgpm.control.mapper.SancionMapper;
 import edu.unimag.sgpm.control.service.SancionService;
 import edu.unimag.sgpm.model.entity.Administrador;
 import edu.unimag.sgpm.model.entity.Sancion;
@@ -18,7 +18,7 @@ import java.util.List;
 @RequiredArgsConstructor
 public class SancionServiceImpl implements SancionService {
     private final UsuarioRepository usuarioRepository;
-    private final SancionMapperImpl sancionMapperImpl;
+    private final SancionMapper sancionMapper;
     private final AdministradorRepository administradorRepository;
     private final SancionRepository sancionRepository;
 
@@ -28,20 +28,20 @@ public class SancionServiceImpl implements SancionService {
                 .orElseThrow(()-> new RuntimeException("Sancionado no encontrado"));
         Administrador administrador = administradorRepository.findById(sancionDto.sancionador())
                 .orElseThrow(()-> new RuntimeException("Sancionar no encontrado"));
-        Sancion sancion = sancionMapperImpl.toSancion(sancionDto);
+        Sancion sancion = sancionMapper.toSancion(sancionDto);
         sancion.setSancionador(administrador);
         sancion.setSancionado(usuario);
-        return sancionMapperImpl.toSancionDto(sancionRepository.save(sancion));
+        return sancionMapper.toSancionDto(sancionRepository.save(sancion));
     }
 
     @Override
     public SancionDto findSancionById(Integer id) {
-        return sancionMapperImpl.toSancionDto(sancionRepository.findById(id).orElseThrow(()-> new RuntimeException("Sancion no encontrada")));
+        return sancionMapper.toSancionDto(sancionRepository.findById(id).orElseThrow(()-> new RuntimeException("Sancion no encontrada")));
     }
 
     @Override
     public List<SancionDto> findAllSancion() {
-        return sancionMapperImpl.toSancionDtos(sancionRepository.findAll());
+        return sancionMapper.toSancionDtos(sancionRepository.findAll());
     }
 
     @Override
@@ -51,7 +51,7 @@ public class SancionServiceImpl implements SancionService {
         antiguo.setFecha(sancion.fecha());
         antiguo.setSancionado(usuarioRepository.findById(sancion.sancionado()).orElseThrow(() -> new RuntimeException("Sancionado no encontrado")));
         antiguo.setSancionador(administradorRepository.findById(sancion.sancionador()).orElseThrow(() -> new RuntimeException("Sancionar no encontrado")));
-        return sancionMapperImpl.toSancionDto(sancionRepository.save(antiguo));
+        return sancionMapper.toSancionDto(sancionRepository.save(antiguo));
     }
 
     @Override

@@ -1,7 +1,7 @@
 package edu.unimag.sgpm.control.service.impl;
 
 import edu.unimag.sgpm.control.dto.EspacioDto;
-import edu.unimag.sgpm.control.mapper.EspacioMapperImpl;
+import edu.unimag.sgpm.control.mapper.EspacioMapper;
 import edu.unimag.sgpm.control.service.EspacioService;
 import edu.unimag.sgpm.model.entity.Espacio;
 import edu.unimag.sgpm.model.entity.EstadoDeEspacio;
@@ -19,7 +19,7 @@ import java.util.List;
 public class EspacioServiceImpl implements EspacioService {
     private final ParqueaderoRepository parqueaderoRepository;
     private final EstadoEspacioRepository estadoEspacioRepository;
-    private final EspacioMapperImpl espacioMapperImpl;
+    private final EspacioMapper espacioMapper;
     private final EspacioRepository espacioRepository;
 
     @Override
@@ -28,19 +28,19 @@ public class EspacioServiceImpl implements EspacioService {
                 .orElseThrow(() -> new RuntimeException("Parqueadero no encontrado"));
         EstadoDeEspacio estado = estadoEspacioRepository.findById(espacioDto.estado())
                 .orElseThrow(() ->new RuntimeException("Estado no encontrado"));
-        Espacio espacio = espacioMapperImpl.toEntity(espacioDto);
+        Espacio espacio = espacioMapper.toEntity(espacioDto);
         espacio.setEstado(estado);
         espacio.setParqueadero(parqueadero);
-        return espacioMapperImpl.toDto(espacioRepository.save(espacio));
+        return espacioMapper.toDto(espacioRepository.save(espacio));
     }
     @Override
     public EspacioDto findEspacioById(String id) {
-        return espacioMapperImpl.toDto(espacioRepository.findById(id).orElseThrow(() -> new RuntimeException("Espacio no encontrado")));
+        return espacioMapper.toDto(espacioRepository.findById(id).orElseThrow(() -> new RuntimeException("Espacio no encontrado")));
     }
 
     @Override
     public List<EspacioDto> findAllEspacios() {
-        return espacioMapperImpl.toDtos(espacioRepository.findAll());
+        return espacioMapper.toDtos(espacioRepository.findAll());
     }
 
     @Override
@@ -48,7 +48,7 @@ public class EspacioServiceImpl implements EspacioService {
         Espacio antiguo = espacioRepository.findById(id).orElseThrow(() -> new RuntimeException("Espacio no encontrado"));
         antiguo.setEstado(estadoEspacioRepository.findById(espacio.estado()).orElseThrow(() -> new RuntimeException("Estado no encontrado")));
         antiguo.setParqueadero(parqueaderoRepository.findById(espacio.parqueadero()).orElseThrow(() -> new RuntimeException("Parqueadero no encontrado")));
-        return espacioMapperImpl.toDto(espacioRepository.save(antiguo));
+        return espacioMapper.toDto(espacioRepository.save(antiguo));
     }
 
     @Override

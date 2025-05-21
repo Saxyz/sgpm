@@ -1,7 +1,7 @@
 package edu.unimag.sgpm.control.service.impl;
 
 import edu.unimag.sgpm.control.dto.RegistroDto;
-import edu.unimag.sgpm.control.mapper.RegistroMapperImpl;
+import edu.unimag.sgpm.control.mapper.RegistroMapper;
 import edu.unimag.sgpm.control.service.RegistroService;
 import edu.unimag.sgpm.model.entity.Espacio;
 import edu.unimag.sgpm.model.entity.Moto;
@@ -23,7 +23,7 @@ public class RegistroServiceImpl implements RegistroService {
     private final EspacioRepository espacioRepository;
     private final MotoRepository motoRepository;
     private final VigilanteRepository vigilanteRepository;
-    private final RegistroMapperImpl registroMapperImpl;
+    private final RegistroMapper registroMapper;
     private final RegistroRepository registroRepository;
 
     @Override
@@ -34,21 +34,21 @@ public class RegistroServiceImpl implements RegistroService {
                 .orElseThrow(() -> new RuntimeException("Moto no encontrada"));
         Vigilante vigilante = vigilanteRepository.findById(registroDto.vigilante())
                 .orElseThrow(() -> new RuntimeException("Vigilante no encontrado"));
-        Registro registro = registroMapperImpl.toRegistro(registroDto);
+        Registro registro = registroMapper.toRegistro(registroDto);
         registro.setEspacio(espacio);
         registro.setMoto(moto);
         registro.setVigilante(vigilante);
-        return registroMapperImpl.toDto(registroRepository.save(registro));
+        return registroMapper.toDto(registroRepository.save(registro));
     }
 
     @Override
     public RegistroDto findRegistroById(Integer id) {
-        return registroMapperImpl.toDto(registroRepository.findById(id).orElseThrow(() -> new RuntimeException("Registro no encontrado")));
+        return registroMapper.toDto(registroRepository.findById(id).orElseThrow(() -> new RuntimeException("Registro no encontrado")));
     }
 
     @Override
     public List<RegistroDto> findAllRegistros() {
-        return registroMapperImpl.toDtos(registroRepository.findAll());
+        return registroMapper.toDtos(registroRepository.findAll());
     }
 
     @Override
@@ -57,7 +57,7 @@ public class RegistroServiceImpl implements RegistroService {
         antiguo.setMoto(motoRepository.findById(registro.moto()).orElseThrow(() -> new RuntimeException("Moto no encontrado")));
         antiguo.setEspacio(espacioRepository.findById(registro.espacio()).orElseThrow(() -> new RuntimeException("Espacio no encontrado")));
         antiguo.setVigilante(vigilanteRepository.findById(registro.vigilante()).orElseThrow(() -> new RuntimeException("Vigilante no encontrado")));
-        return registroMapperImpl.toDto(registroRepository.save(antiguo));
+        return registroMapper.toDto(registroRepository.save(antiguo));
     }
 
     @Override

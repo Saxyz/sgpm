@@ -1,4 +1,4 @@
-package edu.unimag.sgpm.control.dto.espacio;
+package edu.unimag.sgpm.control.dto;
 
 public record EspacioDto(
         String id,

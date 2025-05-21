@@ -1,12 +1,12 @@
-package edu.unimag.sgpm.control.dto.sancion;
+package edu.unimag.sgpm.control.dto;
 
 import java.time.LocalDate;
 
-public record ResponseSancionDto(
+public record SancionDto(
         Integer id,
         Integer sancionado,
         Integer sancionador,
         LocalDate fecha,
-        String description
+        String descripcion
 ) {
 }

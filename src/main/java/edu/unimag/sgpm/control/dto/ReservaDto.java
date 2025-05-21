@@ -1,4 +1,4 @@
-package edu.unimag.sgpm.control.dto.reserva;
+package edu.unimag.sgpm.control.dto;
 
 import java.time.LocalDateTime;
 

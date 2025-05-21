@@ -1,6 +1,6 @@
-package edu.unimag.sgpm.control.dto.moto;
+package edu.unimag.sgpm.control.dto;
 
-public record MotoDTO(
+public record MotoDto(
         String idMoto,
         Integer idUsuario,
         Integer idParqueadero,

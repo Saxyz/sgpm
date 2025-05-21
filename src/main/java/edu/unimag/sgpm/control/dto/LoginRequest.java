@@ -1,4 +1,4 @@
-package edu.unimag.sgpm.control.dto.LoginRequest;
+package edu.unimag.sgpm.control.dto;
 
 public record LoginRequest(
     String username,

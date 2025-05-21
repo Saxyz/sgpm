@@ -1,4 +1,4 @@
-package edu.unimag.sgpm.control.dto.JwtResponse;
+package edu.unimag.sgpm.control.dto;
 
 import java.util.List;
 

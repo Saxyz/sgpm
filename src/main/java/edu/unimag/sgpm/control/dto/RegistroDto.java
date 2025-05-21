@@ -1,4 +1,4 @@
-package edu.unimag.sgpm.control.dto.registro;
+package edu.unimag.sgpm.control.dto;
 
 import java.time.LocalDate;
 import java.time.LocalTime;

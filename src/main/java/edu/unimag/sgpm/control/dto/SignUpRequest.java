@@ -1,10 +1,9 @@
-package edu.unimag.sgpm.control.dto.SignUpRequest;
+package edu.unimag.sgpm.control.dto;
 
 import edu.unimag.sgpm.model.entity.Registro;
 import edu.unimag.sgpm.model.entity.Role;
 
 import java.util.List;
-import java.util.Set;
 
 public record SignUpRequest(String firstName,
                             String lastName,

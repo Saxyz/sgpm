@@ -37,7 +37,7 @@ public class Usuario {
     @Column(nullable = false)
     private String contrasenia;
 
-    @OneToMany
     @Column(nullable = false)
+    @OneToMany(fetch = FetchType.EAGER)
     private Set<Role> roles;
 }

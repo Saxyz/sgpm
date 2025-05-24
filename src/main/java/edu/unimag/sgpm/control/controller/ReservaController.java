@@ -10,7 +10,7 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import java.net.URI;
 import java.util.List;
 @RestController
-@RequestMapping("/controller/v1/reservas")
+    @RequestMapping("/api/v1/reservas")
 public class ReservaController {
     private final ReservaService reservaService;
     public ReservaController(ReservaService reservaService) {

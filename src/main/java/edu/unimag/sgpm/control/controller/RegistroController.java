@@ -10,7 +10,7 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import java.net.URI;
 import java.util.List;
 @RestController
-@RequestMapping("/controller/v1/registros")
+@RequestMapping("/api/v1/registros")
 public class RegistroController {
     private final RegistroService registroService;
     public RegistroController(RegistroService registroService) {

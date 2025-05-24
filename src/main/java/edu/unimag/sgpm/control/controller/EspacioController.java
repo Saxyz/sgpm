@@ -11,7 +11,7 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import java.net.URI;
 import java.util.List;
     @RestController
-    @RequestMapping("/controller/v1/spaces")
+    @RequestMapping("/api/v1/espacios")
     public class EspacioController {
         private final EspacioService espacioService;
         public EspacioController(EspacioService espacioService) {
@@ -19,12 +19,12 @@ import java.util.List;
         }
 
         @GetMapping()
-        public ResponseEntity<List<EspacioDto>> getAllEspaces() {
+        public ResponseEntity<List<EspacioDto>> getAllEspacios() {
             return ResponseEntity.ok(espacioService.findAllEspacios());
         }
 
         @GetMapping("/{id}")
-        public ResponseEntity<EspacioDto> getEspaceById(@PathVariable String id) {
+        public ResponseEntity<EspacioDto> getEspacioById(@PathVariable String id) {
             EspacioDto espacio = espacioService.findEspacioById(id);
             if (espacio == null) {
                 throw new EspacioNotFoundException("Espacio no encontrado: " + id);
@@ -38,7 +38,7 @@ import java.util.List;
         }
 
         @PutMapping("/{id}")
-        public ResponseEntity<EspacioDto> updatespacio(@PathVariable String id, @RequestBody EspacioDto espacio) {
+        public ResponseEntity<EspacioDto> updateEspacio(@PathVariable String id, @RequestBody EspacioDto espacio) {
             try {
                 EspacioDto updatedEspacio = espacioService.updateEspacio(id, espacio);
                 return ResponseEntity.ok(updatedEspacio);

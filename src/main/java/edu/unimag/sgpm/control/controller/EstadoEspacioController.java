@@ -10,7 +10,7 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import java.net.URI;
 import java.util.List;
 @RestController
-@RequestMapping("/controller/v1/estadoEspacios")
+@RequestMapping("/api/v1/estadoEspacios")
 public class EstadoEspacioController {
     private final EstadoEspacioService estadoEspacioService;
     public EstadoEspacioController(EstadoEspacioService estadoEspacioService) {

@@ -5,9 +5,8 @@ import edu.unimag.sgpm.control.dto.LoginRequest;
 import edu.unimag.sgpm.control.dto.SignUpRequest;
 import edu.unimag.sgpm.control.security.jwt.JwtUtil;
 import edu.unimag.sgpm.control.security.service.UserDetailsImpl;
-import edu.unimag.sgpm.model.entity.ERole;
-import edu.unimag.sgpm.model.entity.Role;
-import edu.unimag.sgpm.model.entity.Usuario;
+import edu.unimag.sgpm.model.entity.*;
+import edu.unimag.sgpm.model.repository.ParqueaderoRepository;
 import edu.unimag.sgpm.model.repository.RoleRepository;
 import edu.unimag.sgpm.model.repository.UsuarioRepository;
 import lombok.AllArgsConstructor;
@@ -19,13 +18,11 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.HashSet;
 import java.util.List;
+import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -33,16 +30,17 @@ import java.util.stream.Collectors;
 @RequestMapping("/api/v1/auth")
 @AllArgsConstructor
 public class AuthenticationController {
-
+    private ParqueaderoRepository parqueaderoRepository;
     private PasswordEncoder passwordEncoder;
     private AuthenticationManager authenticationManager;
     private JwtUtil jwtUtil;
     private UsuarioRepository userRepository;
     private RoleRepository roleRepository;
 
-    @PostMapping("/login")
+    @GetMapping("/login")
     public ResponseEntity<?> login(@RequestBody LoginRequest loginRequest) {
         try {
+            System.out.println("DATA USER:" + loginRequest.username() + " " + loginRequest.password());
             Authentication authentication = authenticationManager.authenticate(
                     new UsernamePasswordAuthenticationToken(
                             loginRequest.username(),
@@ -76,9 +74,9 @@ public class AuthenticationController {
     @PostMapping("/signup")
     public ResponseEntity<?> registerUser(@RequestBody SignUpRequest sRequest) {
         try {
-            // Validaciones de usuario/email existente
+            // Validaciones de usuario/correo existente
 
-            if (userRepository.existsUserByCorreo(sRequest.email())) {
+            if (userRepository.existsUserByCorreo(sRequest.correo())) {
                 return ResponseEntity.status(HttpStatus.CONFLICT)
                         .body("Error: El correo electrónico ya está en uso.");
             }
@@ -88,12 +86,17 @@ public class AuthenticationController {
             Role role = roleRepository.findByRole(requestedRole)
                     .orElseThrow(() -> new RuntimeException("Rol no encontrado: " + requestedRole));
 
+            Parqueadero parqueadero = parqueaderoRepository.findById(Parqueaderos.Parqueadero1.getNumero())
+                    .orElseThrow(() -> new RuntimeException("Error parqueadero in user."));
+
             // Crear y guardar el usuario
             Usuario user = Usuario.builder()
-                    .nombre(sRequest.username())
-                    .correo(sRequest.email())
-                    .contrasenia(passwordEncoder.encode(sRequest.password()))
+                    .nombre(sRequest.nombre())
+                    .apellido(sRequest.apellido())
+                    .correo(sRequest.correo())
+                    .contrasenia(passwordEncoder.encode(sRequest.contrasenia()))
                     .roles(new HashSet<>(Set.of(role)))
+                    .parqueadero(parqueadero)
                     .build();
 
             Usuario savedUser = userRepository.save(user);

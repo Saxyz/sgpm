@@ -10,7 +10,7 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import java.net.URI;
 import java.util.List;
 @RestController
-@RequestMapping("/controller/v1/motos")
+@RequestMapping("/api/v1/motos")
 public class MotoController {
     private final MotoService motoService;
     public MotoController(MotoService motoService) {

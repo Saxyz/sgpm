@@ -37,7 +37,7 @@ public class AuthenticationController {
     private UsuarioRepository userRepository;
     private RoleRepository roleRepository;
 
-    @GetMapping("/login")
+    @PostMapping("/login")
     public ResponseEntity<?> login(@RequestBody LoginRequest loginRequest) {
         try {
             System.out.println("DATA USER:" + loginRequest.username() + " " + loginRequest.password());
@@ -95,7 +95,7 @@ public class AuthenticationController {
                     .apellido(sRequest.apellido())
                     .correo(sRequest.correo())
                     .contrasenia(passwordEncoder.encode(sRequest.contrasenia()))
-                    .roles(new HashSet<>(Set.of(role)))
+                    .roles(new HashSet<>(Set.of(role))) 
                     .parqueadero(parqueadero)
                     .build();
 

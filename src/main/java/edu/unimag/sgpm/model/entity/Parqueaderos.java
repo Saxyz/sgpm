@@ -1,5 +1,8 @@
 package edu.unimag.sgpm.model.entity;
 
+import lombok.Getter;
+
+@Getter
 public enum Parqueaderos {
     Parqueadero1(1);
 
@@ -9,7 +12,4 @@ public enum Parqueaderos {
         this.numero = numero;
     }
 
-    public int getNumero() {
-        return numero;
-    }
 }

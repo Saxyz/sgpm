@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import lombok.*;
 import lombok.experimental.SuperBuilder;
 
+import java.util.List;
 import java.util.Set;
 
 @Data
@@ -16,7 +17,6 @@ import java.util.Set;
 @Entity
 @Table(name = "Usuarios")
 public class Usuario {
-
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer idUsuario;
@@ -37,7 +37,12 @@ public class Usuario {
     @Column(nullable = false)
     private String contrasenia;
 
-    @Column(nullable = false)
+    @Column(length = 250)
+    private String codigo;
+
+    @OneToMany(fetch = FetchType.EAGER)
+    private List<Moto> motos;
+
     @OneToMany(fetch = FetchType.EAGER)
     private Set<Role> roles;
 }

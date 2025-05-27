@@ -12,7 +12,6 @@ import lombok.*;
 @Builder
 @Data
 public class Moto {
-
     @Id
     private String idMoto;
 
@@ -27,6 +26,9 @@ public class Moto {
     @Column(nullable = false)
     private String modelo;
 
+    @Column
     private String descripcion;
 
+    @Column(nullable = false)
+    private String imagen;
 }

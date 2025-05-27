@@ -24,4 +24,7 @@ public class Parqueadero {
 
     @OneToMany(mappedBy = "parqueadero", fetch = FetchType.LAZY)
     private List<Espacio> espacios;
+
+    @Column
+    private String imagen;
 }

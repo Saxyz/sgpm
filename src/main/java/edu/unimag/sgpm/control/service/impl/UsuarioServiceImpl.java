@@ -1,6 +1,7 @@
 package edu.unimag.sgpm.control.service.impl;
 
 import edu.unimag.sgpm.control.dto.UsuarioDto;
+import edu.unimag.sgpm.control.exceptions.UsuarioNotFoundException;
 import edu.unimag.sgpm.control.mapper.UsuarioMapper;
 import edu.unimag.sgpm.model.entity.Parqueadero;
 import edu.unimag.sgpm.model.entity.Role;
@@ -9,6 +10,7 @@ import edu.unimag.sgpm.model.repository.ParqueaderoRepository;
 import edu.unimag.sgpm.model.repository.UsuarioRepository;
 import edu.unimag.sgpm.control.service.UsuarioService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -22,6 +24,7 @@ public class UsuarioServiceImpl implements UsuarioService {
     private final UsuarioRepository usuarioRepository;
     private final ParqueaderoRepository parqueaderoRepository;
     private final UsuarioMapper usuarioMapper;
+    private final PasswordEncoder passwordEncoder;
 
     @Override
     public UsuarioDto createUsuario(UsuarioDto request) {
@@ -58,11 +61,12 @@ public class UsuarioServiceImpl implements UsuarioService {
 
     @Override
     public UsuarioDto updateUsuarioById(Integer id, UsuarioDto request) {
-        usuarioRepository.findById(id)
+        Usuario usuario = usuarioRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Usuario no encontrado"));
-        Usuario usuario;
 
-        usuario = usuarioMapper.toEntity(request);
+        usuario.setNombre(request.nombre());
+        usuario.setApellido(request.apellido());
+        usuario.setCorreo(request.correo());
 
         if (request.parqueadero() != null) {
             Parqueadero parqueadero = parqueaderoRepository.findById(request.parqueadero())
@@ -81,4 +85,20 @@ public class UsuarioServiceImpl implements UsuarioService {
 
         usuarioRepository.delete(usuario);
     }
+
+    @Override
+    public boolean cambiarContrasenia(Integer id, String actual, String nueva) {
+        String message = "Usuario no encontrado";
+        Usuario usuario = usuarioRepository.findById(id)
+                .orElseThrow(() -> new UsuarioNotFoundException(message));
+
+        if (!passwordEncoder.matches(actual, usuario.getContrasenia())) {
+            return false;
+        }
+
+        usuario.setContrasenia(passwordEncoder.encode(nueva));
+        usuarioRepository.save(usuario);
+        return true;
+    }
+
 }

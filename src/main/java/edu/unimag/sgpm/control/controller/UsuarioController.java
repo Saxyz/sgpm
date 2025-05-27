@@ -1,4 +1,5 @@
 package edu.unimag.sgpm.control.controller;
+import edu.unimag.sgpm.control.dto.CambioContraseniaDto;
 import edu.unimag.sgpm.control.dto.UsuarioDto;
 import edu.unimag.sgpm.control.exceptions.EspacioNotFoundException;
 import edu.unimag.sgpm.control.service.UsuarioService;
@@ -51,6 +52,19 @@ public class UsuarioController {
         usuarioService.deleteUsuarioById(id);
         return ResponseEntity.noContent().build();
     }
+
+    @PutMapping("/{id}/contrasenia")
+    public ResponseEntity<Void> cambiarContrasenia(
+            @PathVariable Integer id,
+            @RequestBody CambioContraseniaDto cambio
+    ) {
+        boolean actualizado = usuarioService.cambiarContrasenia(id, cambio.contraseniaActual(), cambio.nuevaContrasenia());
+        if (!actualizado) {
+            return ResponseEntity.badRequest().build();
+        }
+        return ResponseEntity.noContent().build();
+    }
+
 
     @NotNull
     private static ResponseEntity<UsuarioDto> createNewUsuario(UsuarioDto c) {

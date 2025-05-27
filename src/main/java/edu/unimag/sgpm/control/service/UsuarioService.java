@@ -19,4 +19,6 @@ public interface UsuarioService {
     UsuarioDto updateUsuarioById(Integer id, UsuarioDto request);
 
     void deleteUsuarioById(Integer id);
+
+    boolean cambiarContrasenia(Integer id, String actual, String nueva);
 }

@@ -40,7 +40,7 @@ public class MotoServiceImpl implements MotoService {
     }
 
     @Override
-    public MotoDto findMotoById(String id) {
+    public MotoDto findMotoById(Integer id) {
         Moto moto = motoRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Moto no encontrada"));
         return motoMapper.toDto(moto);
@@ -54,7 +54,7 @@ public class MotoServiceImpl implements MotoService {
     }
 
     @Override
-    public MotoDto updateMotoById(String id, MotoDto request) {
+    public MotoDto updateMotoById(Integer id, MotoDto request) {
         motoRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Moto no encontrada"));
         Moto moto;
@@ -73,7 +73,7 @@ public class MotoServiceImpl implements MotoService {
     }
 
     @Override
-    public void deleteMotoById(String id) {
+    public void deleteMotoById(Integer id) {
         if (!motoRepository.existsById(id)) {
             throw new RuntimeException("Moto no encontrada para eliminar");
         }

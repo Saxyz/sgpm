@@ -34,7 +34,7 @@ public class EspacioServiceImpl implements EspacioService {
         return espacioMapper.toDto(espacioRepository.save(espacio));
     }
     @Override
-    public EspacioDto findEspacioById(String id) {
+    public EspacioDto findEspacioById(Integer id) {
         return espacioMapper.toDto(espacioRepository.findById(id).orElseThrow(() -> new RuntimeException("Espacio no encontrado")));
     }
 
@@ -44,7 +44,7 @@ public class EspacioServiceImpl implements EspacioService {
     }
 
     @Override
-    public EspacioDto updateEspacio(String id, EspacioDto espacio) {
+    public EspacioDto updateEspacio(Integer id, EspacioDto espacio) {
         Espacio antiguo = espacioRepository.findById(id).orElseThrow(() -> new RuntimeException("Espacio no encontrado"));
         antiguo.setEstado(estadoEspacioRepository.findById(espacio.estado()).orElseThrow(() -> new RuntimeException("Estado no encontrado")));
         antiguo.setParqueadero(parqueaderoRepository.findById(espacio.parqueadero()).orElseThrow(() -> new RuntimeException("Parqueadero no encontrado")));
@@ -52,7 +52,7 @@ public class EspacioServiceImpl implements EspacioService {
     }
 
     @Override
-    public void deleteEspacioById(String id) {
+    public void deleteEspacioById(Integer id) {
         espacioRepository.deleteById(id);
     }
 }

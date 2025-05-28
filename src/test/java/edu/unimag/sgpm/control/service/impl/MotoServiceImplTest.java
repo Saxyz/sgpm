@@ -1,5 +1,6 @@
 package edu.unimag.sgpm.control.service.impl;
 
+
 import edu.unimag.sgpm.control.dto.MotoDto;
 import edu.unimag.sgpm.control.mapper.MotoMapper;
 import edu.unimag.sgpm.model.entity.Moto;
@@ -12,6 +13,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.*;
 import org.mockito.internal.matchers.Any;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 import java.util.Optional;
@@ -41,14 +43,18 @@ class MotoServiceImplTest {
         MockitoAnnotations.openMocks(this);
     }
 
+
+    private MultipartFile mockImage = mock(MultipartFile.class); // Use Mockito to mock the MultipartFile
+    private String placeholderRuta = "/some/path/to/image.jpg"; // Example placeholder for 'ruta'
+
     @Test
     void createMoto_Success() {
-        MotoDto request = new MotoDto("M001", 1, 100, "Pulsar", "Negra");
+        MotoDto request = new MotoDto("M001", 1, 100, "Pulsar", "Negra", mockImage, placeholderRuta);
         Usuario usuario = new Usuario();
         Parqueadero parqueadero = new Parqueadero();
         Moto motoEntity = new Moto();
         Moto savedMoto = new Moto();
-        MotoDto expectedDto = new MotoDto("M001", 1, 100, "Pulsar", "Negra");
+        MotoDto expectedDto = new MotoDto("M001", 1, 100, "Pulsar", "Negra", mockImage, placeholderRuta);
 
         when(usuarioRepository.findById(1)).thenReturn(Optional.of(usuario));
         when(parqueaderoRepository.findById(100)).thenReturn(Optional.of(parqueadero));
@@ -65,7 +71,7 @@ class MotoServiceImplTest {
     @Test
     void findMotoById_Success() {
         Moto moto = new Moto();
-        MotoDto dto = new MotoDto("M001", 1, 100, "Pulsar", "Negra");
+        MotoDto dto = new MotoDto("M001", 1, 100, "Pulsar", "Negra", mockImage, placeholderRuta);
 
         when(motoRepository.findById("M001")).thenReturn(Optional.of(moto));
         when(motoMapper.toDto(moto)).thenReturn(dto);
@@ -87,10 +93,12 @@ class MotoServiceImplTest {
 
     @Test
     void findAllMotos_Success() {
+
+
         Moto moto1 = new Moto();
         Moto moto2 = new Moto();
-        MotoDto dto1 = new MotoDto("M001", 1, 100, "Pulsar", "Negra");
-        MotoDto dto2 = new MotoDto("M002", 2, 101, "Yamaha", "Azul");
+        MotoDto dto1 = new MotoDto("M001", 1, 100, "Pulsar", "Negra", mockImage, placeholderRuta);
+        MotoDto dto2 = new MotoDto("M002", 2, 101, "Yamaha", "Azul", mockImage, placeholderRuta);
 
         when(motoRepository.findAll()).thenReturn(List.of(moto1, moto2));
         when(motoMapper.toDto(any())).thenReturn(dto1, dto2);
@@ -105,12 +113,12 @@ class MotoServiceImplTest {
 
     @Test
     void updateMotoById_Success() {
-        MotoDto request = new MotoDto("M001", 1, 100, "Pulsar", "Negra actualizada");
+        MotoDto request = new MotoDto("M001", 1, 100, "Pulsar", "Negra actualizada", mockImage, placeholderRuta);
         Usuario usuario = new Usuario();
         Parqueadero parqueadero = new Parqueadero();
         Moto motoEntity = new Moto();
         Moto updatedMoto = new Moto();
-        MotoDto expectedDto = new MotoDto("M001", 1, 100, "Pulsar", "Negra actualizada");
+        MotoDto expectedDto = new MotoDto("M001", 1, 100, "Pulsar", "Negra actualizada", mockImage, placeholderRuta);
 
         when(motoRepository.findById("M001")).thenReturn(Optional.of(new Moto()));
         when(usuarioRepository.findById(1)).thenReturn(Optional.of(usuario));
@@ -127,7 +135,7 @@ class MotoServiceImplTest {
 
     @Test
     void updateMotoById_NotFound_Throws() {
-        MotoDto request = new MotoDto("M001", 1, 100, "Pulsar", "Negra actualizada");
+        MotoDto request = new MotoDto("M001", 1, 100, "Pulsar", "Negra actualizada", mockImage, placeholderRuta);
 
         when(motoRepository.findById("M001")).thenReturn(Optional.empty());
 

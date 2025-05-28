@@ -1,6 +1,6 @@
 package edu.unimag.sgpm.control.dto;
 
-import edu.unimag.sgpm.model.entity.Role;
+import edu.unimag.sgpm.model.entity.ERole;
 
 public record SignUpRequest(String nombre,
                             String apellido,
@@ -8,5 +8,6 @@ public record SignUpRequest(String nombre,
                             String cel,
                             String correo,
                             String contrasenia,
-                            Role rol) {
+                            String codigo,
+                            ERole rol) {
 }

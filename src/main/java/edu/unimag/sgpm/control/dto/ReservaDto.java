@@ -6,7 +6,7 @@ public record ReservaDto(
         Integer id,
         Integer estado,
         Integer usuario,
-        String espacio,
+        Integer espacio,
         LocalDateTime fecha
 ) {
 }

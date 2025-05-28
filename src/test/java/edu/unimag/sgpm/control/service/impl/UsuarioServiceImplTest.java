@@ -36,11 +36,11 @@ class UsuarioServiceImplTest {
 
     @Test
     void createUsuario_Success() {
-        UsuarioDto request = new UsuarioDto(null, 1, "John", "Doe", "john@example.com", Set.of(1));
+        UsuarioDto request = new UsuarioDto(null, 1, "John", "Doe", "john@example.com","2022214017", Set.of(1));
         Usuario usuarioEntity = mock(Usuario.class);
         Parqueadero parqueadero = new Parqueadero();
         Usuario savedUsuario = mock(Usuario.class);
-        UsuarioDto expectedDto = new UsuarioDto(1, 1, "John", "Doe", "john@example.com", Set.of(1));
+        UsuarioDto expectedDto = new UsuarioDto(1, 1, "John", "Doe", "john@example.com","2022214017", Set.of(1));
 
         when(usuarioMapper.toEntity(request)).thenReturn(usuarioEntity);
         when(parqueaderoRepository.findById(1)).thenReturn(Optional.of(parqueadero));
@@ -56,7 +56,7 @@ class UsuarioServiceImplTest {
 
     @Test
     void createUsuario_ParqueaderoNotFound_Throws() {
-        UsuarioDto request = new UsuarioDto(null, 1, "John", "Doe", "john@example.com",  Set.of(1));
+        UsuarioDto request = new UsuarioDto(null, 1, "John", "Doe", "john@example.com", "2022214017", Set.of(1));
 
         when(parqueaderoRepository.findById(1)).thenReturn(Optional.empty());
 
@@ -67,7 +67,7 @@ class UsuarioServiceImplTest {
     @Test
     void findUsuarioById_Success() {
         Usuario usuario = mock(Usuario.class);
-        UsuarioDto expectedDto = new UsuarioDto(1, 1, "John", "Doe", "john@example.com",  Set.of(1));
+        UsuarioDto expectedDto = new UsuarioDto(1, 1, "John", "Doe", "john@example.com","2022214017",  Set.of(1));
 
         when(usuarioRepository.findById(1)).thenReturn(Optional.of(usuario));
         when(usuarioMapper.toDto(usuario)).thenReturn(expectedDto);
@@ -88,7 +88,7 @@ class UsuarioServiceImplTest {
     @Test
     void findUsuarioByRoles_Success() {
         Usuario usuario = mock(Usuario.class);
-        UsuarioDto expectedDto = new UsuarioDto(1, 1, "John", "Doe", "john@example.com",  Set.of(1));
+        UsuarioDto expectedDto = new UsuarioDto(1, 1, "John", "Doe", "john@example.com", "2022214017", Set.of(1));
         Set<Role> roles = Set.of(new Role());
 
         when(usuarioRepository.findByRoles(roles)).thenReturn(Optional.of(usuario));
@@ -112,8 +112,8 @@ class UsuarioServiceImplTest {
     void findAllUsuarios_ReturnsList() {
         Usuario usuario1 = mock(Usuario.class);
         Usuario usuario2 = mock(Usuario.class);
-        UsuarioDto dto1 = new UsuarioDto(1, 1, "John", "Doe", "john@example.com",  Set.of(1));
-        UsuarioDto dto2 = new UsuarioDto(2, 2, "Jane", "Doe", "jane@example.com",  Set.of(2));
+        UsuarioDto dto1 = new UsuarioDto(1, 1, "John", "Doe", "john@example.com", "2022214017", Set.of(1));
+        UsuarioDto dto2 = new UsuarioDto(2, 2, "Jane", "Doe", "jane@example.com", "2022214017", Set.of(2));
 
         when(usuarioRepository.findAll()).thenReturn(List.of(usuario1, usuario2));
         when(usuarioMapper.toDto(usuario1)).thenReturn(dto1);
@@ -128,11 +128,11 @@ class UsuarioServiceImplTest {
 
     @Test
     void updateUsuarioById_Success() {
-        UsuarioDto request = new UsuarioDto(1, 1, "John", "Doe", "john@example.com",  Set.of(1));
+        UsuarioDto request = new UsuarioDto(1, 1, "John", "Doe", "john@example.com", "2022214017", Set.of(1));
         Usuario usuarioEntity = mock(Usuario.class);
         Parqueadero parqueadero = new Parqueadero();
         Usuario updatedUsuario = mock(Usuario.class);
-        UsuarioDto expectedDto = new UsuarioDto(1, 1, "John", "Doe", "john@example.com",  Set.of(1));
+        UsuarioDto expectedDto = new UsuarioDto(1, 1, "John", "Doe", "john@example.com", "2022214017", Set.of(1));
 
         when(usuarioRepository.findById(1)).thenReturn(Optional.of(usuarioEntity));
         when(usuarioMapper.toEntity(request)).thenReturn(usuarioEntity);
@@ -148,11 +148,11 @@ class UsuarioServiceImplTest {
 
     @Test
     void updateUsuarioById_ParqueaderoNull_Success() {
-        UsuarioDto request = new UsuarioDto(1, null, "John", "Doe", "john@example.com",  Set.of(1));
+        UsuarioDto request = new UsuarioDto(1, null, "John", "Doe", "john@example.com", "2022214017", Set.of(1));
         Usuario usuarioEntity = mock(Usuario.class);
         Parqueadero parqueadero = new Parqueadero();
         Usuario updatedUsuario = mock(Usuario.class);
-        UsuarioDto expectedDto = new UsuarioDto(1, 1, "John", "Doe", "john@example.com", Set.of(1));
+        UsuarioDto expectedDto = new UsuarioDto(1, 1, "John", "Doe", "john@example.com", "2022214017",Set.of(1));
 
         when(usuarioRepository.findById(1)).thenReturn(Optional.of(usuarioEntity));
         when(usuarioMapper.toEntity(request)).thenReturn(usuarioEntity);
@@ -169,7 +169,7 @@ class UsuarioServiceImplTest {
     @Test
     void updateUsuarioById_ParqueaderoNotFound_Throws() {
         Usuario usuarioEntity = mock(Usuario.class);
-        UsuarioDto request = new UsuarioDto(1, 1, "John", "Doe", "john@example.com",  Set.of(1));
+        UsuarioDto request = new UsuarioDto(1, 1, "John", "Doe", "john@example.com","2022214017",  Set.of(1));
 
         when(usuarioRepository.findById(1)).thenReturn(Optional.of(usuarioEntity));
         when(usuarioMapper.toEntity(request)).thenReturn(usuarioEntity);
@@ -181,7 +181,7 @@ class UsuarioServiceImplTest {
 
     @Test
     void updateUsuarioById_UsuarioNotFound_Throws() {
-        UsuarioDto request = new UsuarioDto(1, 1, "John", "Doe", "john@example.com",  Set.of(1));
+        UsuarioDto request = new UsuarioDto(1, 1, "John", "Doe", "john@example.com","2022214017",  Set.of(1));
         when(usuarioRepository.findById(1)).thenReturn(Optional.empty());
 
         RuntimeException ex = assertThrows(RuntimeException.class, () -> usuarioService.updateUsuarioById(1, request));

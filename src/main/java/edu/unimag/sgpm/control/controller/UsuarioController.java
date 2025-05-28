@@ -42,7 +42,7 @@ public class UsuarioController {
             UsuarioDto updatedUsuario = usuarioService.updateUsuarioById(id,usuario);
             return ResponseEntity.ok(updatedUsuario);
         } catch (RuntimeException e) {
-            UsuarioDto nuevoUsuario = new UsuarioDto(usuario.id(), usuario.parqueadero(), usuario.nombre(), usuario.apellido(), usuario.correo(), usuario.roles());
+            UsuarioDto nuevoUsuario = new UsuarioDto(usuario.id(), usuario.parqueadero(), usuario.nombre(), usuario.apellido(), usuario.correo(), usuario.codigo(), usuario.roles());
             return createNewUsuario(nuevoUsuario);
         }
     }

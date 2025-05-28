@@ -48,17 +48,17 @@ class ReservaServiceImplTest {
 
     @Test
     void createReserva_Success() {
-        ReservaDto dto = new ReservaDto(1, 2, 3, "ESP001", LocalDateTime.now());
+        ReservaDto dto = new ReservaDto(1, 2, 3, 1, LocalDateTime.now());
         EstadoDeReserva estado = new EstadoDeReserva();
         Usuario usuario = new Usuario();
         Espacio espacio = new Espacio();
         Reserva reserva = new Reserva();
         Reserva saved = new Reserva();
-        ReservaDto expected = new ReservaDto(1, 2, 3, "ESP001", dto.fecha());
+        ReservaDto expected = new ReservaDto(1, 2, 3, 1, dto.fecha());
 
         when(estadoReservaRepository.findById(2)).thenReturn(Optional.of(estado));
         when(usuarioRepository.findById(1)).thenReturn(Optional.of(usuario)); // id() devuelve el ID del DTO (posiblemente incorrecto en tu código)
-        when(espacioRepository.findById("ESP001")).thenReturn(Optional.of(espacio));
+        when(espacioRepository.findById(1)).thenReturn(Optional.of(espacio));
         when(reservaMapper.reservaDtoToReserva(dto)).thenReturn(reserva);
         when(reservaRepository.save(reserva)).thenReturn(saved);
         when(reservaMapper.reservaToDto(saved)).thenReturn(expected);
@@ -72,7 +72,7 @@ class ReservaServiceImplTest {
     @Test
     void findReservaById_Success() {
         Reserva reserva = new Reserva();
-        ReservaDto dto = new ReservaDto(1, 2, 3, "ESP001", LocalDateTime.now());
+        ReservaDto dto = new ReservaDto(1, 2, 3, 1, LocalDateTime.now());
 
         when(reservaRepository.findById(1)).thenReturn(Optional.of(reserva));
         when(reservaMapper.reservaToDto(reserva)).thenReturn(dto);
@@ -95,8 +95,8 @@ class ReservaServiceImplTest {
     void findAllReservas_Success() {
         Reserva r1 = new Reserva();
         Reserva r2 = new Reserva();
-        ReservaDto dto1 = new ReservaDto(1, 1, 1, "E1", LocalDateTime.now());
-        ReservaDto dto2 = new ReservaDto(2, 2, 2, "E2", LocalDateTime.now());
+        ReservaDto dto1 = new ReservaDto(1, 1, 1, 1, LocalDateTime.now());
+        ReservaDto dto2 = new ReservaDto(2, 2, 2, 1, LocalDateTime.now());
 
         when(reservaRepository.findAll()).thenReturn(List.of(r1, r2));
         when(reservaMapper.reservaListToDtoList(List.of(r1, r2))).thenReturn(List.of(dto1, dto2));
@@ -110,16 +110,16 @@ class ReservaServiceImplTest {
 
     @Test
     void updateReservaById_Success() {
-        ReservaDto dto = new ReservaDto(1, 2, 3, "ESP001", LocalDateTime.now());
+        ReservaDto dto = new ReservaDto(1, 2, 3, 1, LocalDateTime.now());
         Reserva reserva = new Reserva();
         EstadoDeReserva estado = new EstadoDeReserva();
         Usuario usuario = new Usuario();
         Espacio espacio = new Espacio();
         Reserva saved = new Reserva();
-        ReservaDto expected = new ReservaDto(1, 2, 3, "ESP001", dto.fecha());
+        ReservaDto expected = new ReservaDto(1, 2, 3, 1, dto.fecha());
 
         when(reservaRepository.findById(1)).thenReturn(Optional.of(reserva));
-        when(espacioRepository.findById("ESP001")).thenReturn(Optional.of(espacio));
+        when(espacioRepository.findById(1)).thenReturn(Optional.of(espacio));
         when(usuarioRepository.findById(3)).thenReturn(Optional.of(usuario));
         when(estadoReservaRepository.findById(2)).thenReturn(Optional.of(estado));
         when(reservaRepository.save(reserva)).thenReturn(saved);
@@ -133,7 +133,7 @@ class ReservaServiceImplTest {
 
     @Test
     void updateReservaById_NotFound_Throws() {
-        ReservaDto dto = new ReservaDto(1, 2, 3, "ESP001", LocalDateTime.now());
+        ReservaDto dto = new ReservaDto(1, 2, 3, 1, LocalDateTime.now());
 
         when(reservaRepository.findById(1)).thenReturn(Optional.empty());
 

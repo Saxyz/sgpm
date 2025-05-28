@@ -11,7 +11,6 @@ import edu.unimag.sgpm.model.repository.UsuarioRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.*;
-import org.mockito.internal.matchers.Any;
 
 import java.util.List;
 import java.util.Optional;
@@ -43,12 +42,12 @@ class MotoServiceImplTest {
 
     @Test
     void createMoto_Success() {
-        MotoDto request = new MotoDto("M001", 1, 100, "Pulsar", "Negra");
+        MotoDto request = new MotoDto(1,"M001", 1, 100, "Pulsar", "Negra",  "");
         Usuario usuario = new Usuario();
         Parqueadero parqueadero = new Parqueadero();
         Moto motoEntity = new Moto();
         Moto savedMoto = new Moto();
-        MotoDto expectedDto = new MotoDto("M001", 1, 100, "Pulsar", "Negra");
+        MotoDto expectedDto = new MotoDto(1,"M001", 1, 100, "Pulsar", "Negra",  "");
 
         when(usuarioRepository.findById(1)).thenReturn(Optional.of(usuario));
         when(parqueaderoRepository.findById(100)).thenReturn(Optional.of(parqueadero));
@@ -65,22 +64,22 @@ class MotoServiceImplTest {
     @Test
     void findMotoById_Success() {
         Moto moto = new Moto();
-        MotoDto dto = new MotoDto("M001", 1, 100, "Pulsar", "Negra");
+        MotoDto dto = new MotoDto(1,"M001", 1, 100, "Pulsar", "Negra",  "");
 
-        when(motoRepository.findById("M001")).thenReturn(Optional.of(moto));
+        when(motoRepository.findById(1)).thenReturn(Optional.of(moto));
         when(motoMapper.toDto(moto)).thenReturn(dto);
 
-        MotoDto result = motoService.findMotoById("M001");
+        MotoDto result = motoService.findMotoById(1);
 
         assertEquals(dto, result);
     }
 
     @Test
     void findMotoById_NotFound_Throws() {
-        when(motoRepository.findById("M001")).thenReturn(Optional.empty());
+        when(motoRepository.findById(1)).thenReturn(Optional.empty());
 
         RuntimeException ex = assertThrows(RuntimeException.class, () ->
-                motoService.findMotoById("M001"));
+                motoService.findMotoById(1));
 
         assertEquals("Moto no encontrada", ex.getMessage());
     }
@@ -89,8 +88,8 @@ class MotoServiceImplTest {
     void findAllMotos_Success() {
         Moto moto1 = new Moto();
         Moto moto2 = new Moto();
-        MotoDto dto1 = new MotoDto("M001", 1, 100, "Pulsar", "Negra");
-        MotoDto dto2 = new MotoDto("M002", 2, 101, "Yamaha", "Azul");
+        MotoDto dto1 = new MotoDto(1,"M001", 1, 100, "Pulsar", "Negra",  "");
+        MotoDto dto2 = new MotoDto(1,"M002", 2, 101, "Yamaha", "Azul",  "");
 
         when(motoRepository.findAll()).thenReturn(List.of(moto1, moto2));
         when(motoMapper.toDto(any())).thenReturn(dto1, dto2);
@@ -105,21 +104,21 @@ class MotoServiceImplTest {
 
     @Test
     void updateMotoById_Success() {
-        MotoDto request = new MotoDto("M001", 1, 100, "Pulsar", "Negra actualizada");
+        MotoDto request = new MotoDto(1,"M001", 1, 100, "Pulsar", "Negra actualizada",  "");
         Usuario usuario = new Usuario();
         Parqueadero parqueadero = new Parqueadero();
         Moto motoEntity = new Moto();
         Moto updatedMoto = new Moto();
-        MotoDto expectedDto = new MotoDto("M001", 1, 100, "Pulsar", "Negra actualizada");
+        MotoDto expectedDto = new MotoDto(1,"M001", 1, 100, "Pulsar", "Negra actualizada",  "");
 
-        when(motoRepository.findById("M001")).thenReturn(Optional.of(new Moto()));
+        when(motoRepository.findById(1)).thenReturn(Optional.of(new Moto()));
         when(usuarioRepository.findById(1)).thenReturn(Optional.of(usuario));
         when(parqueaderoRepository.findById(100)).thenReturn(Optional.of(parqueadero));
         when(motoMapper.toEntity(request)).thenReturn(motoEntity);
         when(motoRepository.save(motoEntity)).thenReturn(updatedMoto);
         when(motoMapper.toDto(updatedMoto)).thenReturn(expectedDto);
 
-        MotoDto result = motoService.updateMotoById("M001", request);
+        MotoDto result = motoService.updateMotoById(1, request);
 
         assertEquals(expectedDto, result);
         verify(motoRepository).save(motoEntity);
@@ -127,32 +126,32 @@ class MotoServiceImplTest {
 
     @Test
     void updateMotoById_NotFound_Throws() {
-        MotoDto request = new MotoDto("M001", 1, 100, "Pulsar", "Negra actualizada");
+        MotoDto request = new MotoDto(1,"M001", 1, 100, "Pulsar", "Negra actualizada",  "");
 
-        when(motoRepository.findById("M001")).thenReturn(Optional.empty());
+        when(motoRepository.findById(1)).thenReturn(Optional.empty());
 
         RuntimeException ex = assertThrows(RuntimeException.class, () ->
-                motoService.updateMotoById("M001", request));
+                motoService.updateMotoById(1, request));
 
         assertEquals("Moto no encontrada", ex.getMessage());
     }
 
     @Test
     void deleteMotoById_Success() {
-        when(motoRepository.existsById("M001")).thenReturn(true);
-        doNothing().when(motoRepository).deleteById("M001");
+        when(motoRepository.existsById(1)).thenReturn(true);
+        doNothing().when(motoRepository).deleteById(1);
 
-        motoService.deleteMotoById("M001");
+        motoService.deleteMotoById(1);
 
-        verify(motoRepository).deleteById("M001");
+        verify(motoRepository).deleteById(1);
     }
 
     @Test
     void deleteMotoById_NotFound_Throws() {
-        when(motoRepository.existsById("M001")).thenReturn(false);
+        when(motoRepository.existsById(1)).thenReturn(false);
 
         RuntimeException ex = assertThrows(RuntimeException.class, () ->
-                motoService.deleteMotoById("M001"));
+                motoService.deleteMotoById(1));
 
         assertEquals("Moto no encontrada para eliminar", ex.getMessage());
     }

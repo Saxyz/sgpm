@@ -24,7 +24,7 @@ import java.util.List;
         }
 
         @GetMapping("/{id}")
-        public ResponseEntity<EspacioDto> getEspacioById(@PathVariable String id) {
+        public ResponseEntity<EspacioDto> getEspacioById(@PathVariable Integer id) {
             EspacioDto espacio = espacioService.findEspacioById(id);
             if (espacio == null) {
                 throw new EspacioNotFoundException("Espacio no encontrado: " + id);
@@ -34,11 +34,12 @@ import java.util.List;
 
         @PostMapping()
         public ResponseEntity<EspacioDto> createEspacio(@RequestBody EspacioDto Espacio) {
+            espacioService.createEspacio(Espacio);
             return createNewEspacio(Espacio);
         }
 
         @PutMapping("/{id}")
-        public ResponseEntity<EspacioDto> updateEspacio(@PathVariable String id, @RequestBody EspacioDto espacio) {
+        public ResponseEntity<EspacioDto> updateEspacio(@PathVariable Integer id, @RequestBody EspacioDto espacio) {
             try {
                 EspacioDto updatedEspacio = espacioService.updateEspacio(id, espacio);
                 return ResponseEntity.ok(updatedEspacio);
@@ -48,7 +49,7 @@ import java.util.List;
         }
 
         @DeleteMapping("/{id}")
-        public ResponseEntity<Void> deleteEspacio(@PathVariable String id) {
+        public ResponseEntity<Void> deleteEspacio(@PathVariable Integer id) {
             espacioService.deleteEspacioById(id);
             return ResponseEntity.noContent().build();
         }

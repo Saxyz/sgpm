@@ -82,9 +82,8 @@ public class AuthenticationController {
             }
 
             // Obtener el rol solicitado
-            ERole requestedRole = sRequest.rol().getRole();
-            Role role = roleRepository.findByRole(requestedRole)
-                    .orElseThrow(() -> new RuntimeException("Rol no encontrado: " + requestedRole));
+            Role role = roleRepository.findByRole(sRequest.rol())
+                    .orElseThrow(() -> new RuntimeException("Rol no encontrado: " + sRequest.rol()));
 
             Parqueadero parqueadero = parqueaderoRepository.findById(Parqueaderos.Parqueadero1.getNumero())
                     .orElseThrow(() -> new RuntimeException("Error parqueadero in user."));
@@ -97,6 +96,7 @@ public class AuthenticationController {
                     .contrasenia(passwordEncoder.encode(sRequest.contrasenia()))
                     .roles(new HashSet<>(Set.of(role))) 
                     .parqueadero(parqueadero)
+                    .codigo(sRequest.codigo())
                     .build();
 
             Usuario savedUser = userRepository.save(user);

@@ -8,6 +8,7 @@ import org.springframework.core.io.UrlResource;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import java.io.IOException;
@@ -34,7 +35,7 @@ public class MotoController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<MotoDto> getMotoById(@PathVariable String id) {
+    public ResponseEntity<MotoDto> getMotoById(@PathVariable Integer id) {
         MotoDto espacio = motoService.findMotoById(id);
         if (espacio == null) {
             throw new EspacioNotFoundException("Espacio no encontrado: " + id);
@@ -43,17 +44,18 @@ public class MotoController {
     }
 
     @PostMapping()
-    public ResponseEntity<MotoDto> createMoto(@RequestBody MotoDto moto) throws IOException {
-        String nombreArchivo = UUID.randomUUID() + "_" + moto.imagen().getOriginalFilename();
+    public ResponseEntity<MotoDto> createMoto(@ModelAttribute MotoDto moto, @RequestParam("imagen") MultipartFile imagen) throws IOException {
+        String nombreArchivo = UUID.randomUUID() + "_" + imagen.getOriginalFilename();
         Path ruta = Paths.get("C:\\Users\\Steven\\IdeaProjects\\sgpm-frontend\\src\\assets\\motoimg", nombreArchivo);
         Files.createDirectories(ruta.getParent());
-        Files.write(ruta, moto.imagen().getBytes());
-        MotoDto motoDto = new MotoDto(moto.idMoto(), moto.idUsuario(), moto.idParqueadero(), moto.modelo(), moto.descripcion(), moto.imagen(), ruta.toString());
+        Files.write(ruta, imagen.getBytes());
+        MotoDto motoDto = new MotoDto(moto.idMoto(), moto.placa(), moto.idUsuario(), moto.idParqueadero(), moto.modelo(), moto.descripcion(), ruta.toString());
+        motoService.createMoto(motoDto);
         return createNewMoto(motoDto);
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<MotoDto> updateMoto(@PathVariable String id, @RequestBody MotoDto moto) {
+    public ResponseEntity<MotoDto> updateMoto(@PathVariable Integer id, @RequestBody MotoDto moto) {
         try {
             MotoDto updatedEspacio = motoService.updateMotoById(id, moto);
             return ResponseEntity.ok(updatedEspacio);
@@ -63,7 +65,7 @@ public class MotoController {
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deleteMoto(@PathVariable String id) {
+    public ResponseEntity<Void> deleteMoto(@PathVariable Integer id) {
         motoService.deleteMotoById(id);
         return ResponseEntity.noContent().build();
     }
@@ -79,7 +81,7 @@ public class MotoController {
     }
 
     @GetMapping("/imagen/{id}")
-    public ResponseEntity<Resource> verImagenMoto(@PathVariable String id) throws IOException {
+    public ResponseEntity<Resource> verImagenMoto(@PathVariable Integer id) throws IOException {
         Optional<MotoDto> motoOpt = Optional.of(motoService.findMotoById(id));
 
         MotoDto moto = motoOpt.get();

@@ -49,16 +49,16 @@ class RegistroServiceImplTest {
 
     @Test
     void createRegistro_Success() {
-        RegistroDto dto = new RegistroDto(1, "ESP001", "MOTO123", 5, LocalDate.now(), LocalTime.of(8, 0), null);
+        RegistroDto dto = new RegistroDto(1, 1, 1, 5, LocalDate.now(), LocalTime.of(8, 0), null);
         Espacio espacio = new Espacio();
         Moto moto = new Moto();
         Vigilante vigilante = new Vigilante();
         Registro entity = new Registro();
         Registro saved = new Registro();
-        RegistroDto expected = new RegistroDto(1, "ESP001", "MOTO123", 5, LocalDate.now(), LocalTime.of(8, 0), null);
+        RegistroDto expected = new RegistroDto(1, 1, 1, 5, LocalDate.now(), LocalTime.of(8, 0), null);
 
-        when(espacioRepository.findById("ESP001")).thenReturn(Optional.of(espacio));
-        when(motoRepository.findById("MOTO123")).thenReturn(Optional.of(moto));
+        when(espacioRepository.findById(1)).thenReturn(Optional.of(espacio));
+        when(motoRepository.findById(1)).thenReturn(Optional.of(moto));
         when(vigilanteRepository.findById(5)).thenReturn(Optional.of(vigilante));
         when(registroMapper.toRegistro(dto)).thenReturn(entity);
         when(registroRepository.save(entity)).thenReturn(saved);
@@ -73,7 +73,7 @@ class RegistroServiceImplTest {
     @Test
     void findRegistroById_Success() {
         Registro entity = new Registro();
-        RegistroDto dto = new RegistroDto(1, "ESP001", "MOTO123", 5, LocalDate.now(), LocalTime.of(8, 0), null);
+        RegistroDto dto = new RegistroDto(1, 1, 1, 5, LocalDate.now(), LocalTime.of(8, 0), null);
 
         when(registroRepository.findById(1)).thenReturn(Optional.of(entity));
         when(registroMapper.toDto(entity)).thenReturn(dto);
@@ -96,8 +96,8 @@ class RegistroServiceImplTest {
     void findAllRegistros_Success() {
         Registro r1 = new Registro();
         Registro r2 = new Registro();
-        RegistroDto dto1 = new RegistroDto(1, "E1", "M1", 1, LocalDate.now(), LocalTime.of(9, 0), null);
-        RegistroDto dto2 = new RegistroDto(2, "E2", "M2", 2, LocalDate.now(), LocalTime.of(10, 0), null);
+        RegistroDto dto1 = new RegistroDto(1, 1, 1, 1, LocalDate.now(), LocalTime.of(9, 0), null);
+        RegistroDto dto2 = new RegistroDto(2, 1, 1, 2, LocalDate.now(), LocalTime.of(10, 0), null);
 
         when(registroRepository.findAll()).thenReturn(List.of(r1, r2));
         when(registroMapper.toDtos(List.of(r1, r2))).thenReturn(List.of(dto1, dto2));
@@ -111,17 +111,17 @@ class RegistroServiceImplTest {
 
     @Test
     void updateRegistroById_Success() {
-        RegistroDto dto = new RegistroDto(1, "ESP001", "MOTO123", 5, LocalDate.now(), LocalTime.of(8, 0), LocalTime.of(17, 0));
+        RegistroDto dto = new RegistroDto(1, 1, 1, 5, LocalDate.now(), LocalTime.of(8, 0), LocalTime.of(17, 0));
         Registro entity = new Registro();
         Moto moto = new Moto();
         Espacio espacio = new Espacio();
         Vigilante vigilante = new Vigilante();
         Registro saved = new Registro();
-        RegistroDto expected = new RegistroDto(1, "ESP001", "MOTO123", 5, LocalDate.now(), LocalTime.of(8, 0), LocalTime.of(17, 0));
+        RegistroDto expected = new RegistroDto(1, 1, 1, 5, LocalDate.now(), LocalTime.of(8, 0), LocalTime.of(17, 0));
 
         when(registroRepository.findById(1)).thenReturn(Optional.of(entity));
-        when(motoRepository.findById("MOTO123")).thenReturn(Optional.of(moto));
-        when(espacioRepository.findById("ESP001")).thenReturn(Optional.of(espacio));
+        when(motoRepository.findById(1)).thenReturn(Optional.of(moto));
+        when(espacioRepository.findById(1)).thenReturn(Optional.of(espacio));
         when(vigilanteRepository.findById(5)).thenReturn(Optional.of(vigilante));
         when(registroRepository.save(entity)).thenReturn(saved);
         when(registroMapper.toDto(saved)).thenReturn(expected);
@@ -134,7 +134,7 @@ class RegistroServiceImplTest {
 
     @Test
     void updateRegistroById_NotFound_Throws() {
-        RegistroDto dto = new RegistroDto(1, "ESP001", "MOTO123", 5, LocalDate.now(), LocalTime.of(8, 0), null);
+        RegistroDto dto = new RegistroDto(1, 1, 1, 5, LocalDate.now(), LocalTime.of(8, 0), null);
         when(registroRepository.findById(1)).thenReturn(Optional.empty());
 
         RuntimeException ex = assertThrows(RuntimeException.class, () ->

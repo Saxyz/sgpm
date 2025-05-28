@@ -3,12 +3,23 @@ import edu.unimag.sgpm.control.dto.MotoDto;
 import edu.unimag.sgpm.control.exceptions.EspacioNotFoundException;
 import edu.unimag.sgpm.control.service.MotoService;
 import jakarta.validation.constraints.NotNull;
+import org.springframework.core.io.Resource;
+import org.springframework.core.io.UrlResource;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import java.io.IOException;
 import java.net.URI;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.List;
+import java.util.Objects;
+import java.util.Optional;
+import java.util.UUID;
+
 @RestController
 @RequestMapping("/api/v1/motos")
 public class MotoController {
@@ -32,8 +43,13 @@ public class MotoController {
     }
 
     @PostMapping()
-    public ResponseEntity<MotoDto> createMoto(@RequestBody MotoDto Espacio) {
-        return createNewMoto(Espacio);
+    public ResponseEntity<MotoDto> createMoto(@RequestBody MotoDto moto) throws IOException {
+        String nombreArchivo = UUID.randomUUID() + "_" + moto.imagen().getOriginalFilename();
+        Path ruta = Paths.get("C:\\Users\\Steven\\IdeaProjects\\sgpm-frontend\\src\\assets\\motoimg", nombreArchivo);
+        Files.createDirectories(ruta.getParent());
+        Files.write(ruta, moto.imagen().getBytes());
+        MotoDto motoDto = new MotoDto(moto.idMoto(), moto.idUsuario(), moto.idParqueadero(), moto.modelo(), moto.descripcion(), moto.imagen(), ruta.toString());
+        return createNewMoto(motoDto);
     }
 
     @PutMapping("/{id}")
@@ -60,5 +76,20 @@ public class MotoController {
                 .buildAndExpand(c.idMoto())
                 .toUri();
         return ResponseEntity.created(location).body(c);
+    }
+
+    @GetMapping("/imagen/{id}")
+    public ResponseEntity<Resource> verImagenMoto(@PathVariable String id) throws IOException {
+        Optional<MotoDto> motoOpt = Optional.of(motoService.findMotoById(id));
+
+        MotoDto moto = motoOpt.get();
+        Path ruta = Paths.get(Objects.requireNonNull(moto.ruta()));
+        Resource recurso = new UrlResource(ruta.toUri());
+
+        if (!recurso.exists()) return ResponseEntity.notFound().build();
+
+        return ResponseEntity.ok()
+                .contentType(MediaType.IMAGE_JPEG)
+                .body(recurso);
     }
 }

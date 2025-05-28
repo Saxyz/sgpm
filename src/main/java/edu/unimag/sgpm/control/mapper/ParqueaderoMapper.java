@@ -11,10 +11,13 @@ import java.util.List;
 public interface ParqueaderoMapper {
 
     @Mapping(source = "idParqueadero", target = "id")
+    @Mapping(source = "imagen", target = "ruta")
+    @Mapping(target = "imagen", ignore = true)
     ParqueaderoDto toDto(Parqueadero parqueadero);
 
     @Mapping(source = "id", target = "idParqueadero")
     @Mapping(source = "espacios", target = "espacios", ignore = true)
+    @Mapping(source = "ruta", target = "imagen")
     Parqueadero toEntity(ParqueaderoDto dto);
 
     @Mapping(source = "espacio", target = "idEspacio")

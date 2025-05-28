@@ -7,6 +7,7 @@ import edu.unimag.sgpm.model.repository.ParqueaderoRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 import java.util.Optional;
@@ -30,12 +31,16 @@ class ParqueaderoServiceImplTest {
         MockitoAnnotations.openMocks(this);
     }
 
+    MultipartFile mockImage = mock(MultipartFile.class);
+    String placeholderRuta = "/default/path/to/image.jpg";
+
+
     @Test
     void createParqueadero_Success() {
-        ParqueaderoDto request = new ParqueaderoDto(null, "Central",null, "", List.of(1, 2));
+        ParqueaderoDto request = new ParqueaderoDto(null, "Central", mockImage, placeholderRuta, List.of(1, 2));
         Parqueadero entity = mock(Parqueadero.class);
         Parqueadero savedEntity = mock(Parqueadero.class);
-        ParqueaderoDto expected = new ParqueaderoDto(1, "Central",null, "", List.of(1, 2));
+        ParqueaderoDto expected = new ParqueaderoDto(1, "Central", mockImage, placeholderRuta, List.of(1, 2));
 
         when(parqueaderoMapper.toEntity(request)).thenReturn(entity);
         when(parqueaderoRepository.save(entity)).thenReturn(savedEntity);
@@ -50,7 +55,7 @@ class ParqueaderoServiceImplTest {
     @Test
     void findParqueaderoById_Success() {
         Parqueadero entity = mock(Parqueadero.class);
-        ParqueaderoDto expected = new ParqueaderoDto(1, "Central",null, "", List.of(1, 2));
+        ParqueaderoDto expected = new ParqueaderoDto(1, "Central", mockImage, placeholderRuta, List.of(1, 2));
 
         when(parqueaderoRepository.findById(1)).thenReturn(Optional.of(entity));
         when(parqueaderoMapper.toDto(entity)).thenReturn(expected);
@@ -74,8 +79,8 @@ class ParqueaderoServiceImplTest {
     void findAllParqueaderos_ReturnsList() {
         Parqueadero p1 = mock(Parqueadero.class);
         Parqueadero p2 = mock(Parqueadero.class);
-        ParqueaderoDto dto1 = new ParqueaderoDto(1, "Central",null, "", List.of(1));
-        ParqueaderoDto dto2 = new ParqueaderoDto(2, "Norte",null, "", List.of(2));
+        ParqueaderoDto dto1 = new ParqueaderoDto(1, "Central", mockImage, placeholderRuta, List.of(1));
+        ParqueaderoDto dto2 = new ParqueaderoDto(2, "Norte" , mockImage, placeholderRuta, List.of(2));
 
         when(parqueaderoRepository.findAll()).thenReturn(List.of(p1, p2));
         when(parqueaderoMapper.toDto(p1)).thenReturn(dto1);
@@ -90,10 +95,10 @@ class ParqueaderoServiceImplTest {
 
     @Test
     void updateParqueaderoById_Success() {
-        ParqueaderoDto request = new ParqueaderoDto(1, "Central",null, "", List.of(1, 2));
+        ParqueaderoDto request = new ParqueaderoDto(1, "Central" , mockImage, placeholderRuta, List.of(1, 2));
         Parqueadero entity = mock(Parqueadero.class);
         Parqueadero updatedEntity = mock(Parqueadero.class);
-        ParqueaderoDto expected = new ParqueaderoDto(1, "Central",null, "", List.of(1, 2));
+        ParqueaderoDto expected = new ParqueaderoDto(1, "Central" , mockImage, placeholderRuta, List.of(1, 2));
 
         when(parqueaderoRepository.findById(1)).thenReturn(Optional.of(mock(Parqueadero.class)));
         when(parqueaderoMapper.toEntity(request)).thenReturn(entity);
@@ -107,7 +112,7 @@ class ParqueaderoServiceImplTest {
 
     @Test
     void updateParqueaderoById_NotFound_Throws() {
-        ParqueaderoDto request = new ParqueaderoDto(1, "Central",null, "", List.of(1, 2));
+        ParqueaderoDto request = new ParqueaderoDto(1, "Central" , mockImage, placeholderRuta, List.of(1, 2));
         when(parqueaderoRepository.findById(1)).thenReturn(Optional.empty());
 
         RuntimeException ex = assertThrows(RuntimeException.class,

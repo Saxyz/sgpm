@@ -6,8 +6,8 @@ import java.util.List;
 
 public interface EspacioService {
     EspacioDto createEspacio(EspacioDto espacio);
-    EspacioDto findEspacioById(String id);
+    EspacioDto findEspacioById(Integer id);
     List<EspacioDto> findAllEspacios();
-    EspacioDto updateEspacio(String id, EspacioDto espacio);
-    void deleteEspacioById(String id);
+    EspacioDto updateEspacio(Integer id, EspacioDto espacio);
+    void deleteEspacioById(Integer id);
 }

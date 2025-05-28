@@ -10,7 +10,6 @@ public interface MotoMapper {
     @Mapping(source = "usuario.idUsuario", target = "idUsuario")
     @Mapping(source = "parqueadero.idParqueadero", target = "idParqueadero")
     @Mapping(source = "imagen", target = "ruta")
-    @Mapping(target = "imagen", ignore = true)
     MotoDto toDto(Moto moto);
 
     @Mapping(source = "idUsuario", target = "usuario.idUsuario")

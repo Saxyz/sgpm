@@ -17,6 +17,9 @@ public interface UsuarioMapper {
 
     @Mapping(source = "parqueadero", target = "parqueadero.idParqueadero")
     @Mapping(source = "id", target = "idUsuario")
+    @Mapping(target = "contrasenia", ignore = true)
+    @Mapping(source = "codigo", target = "codigo")
+    @Mapping(target = "motos", ignore = true)
     Usuario toEntity(UsuarioDto dto);
 
     List<UsuarioDto> toDtos(List<Usuario> usuarios);
@@ -26,7 +29,10 @@ public interface UsuarioMapper {
     default Integer toIdRole(Role role){
         return role.getId();
     }
-    Role toRole(Integer id);
+
+    default Role toRole(Integer id){
+        return new Role(id,null);
+    }
 
     Set<Integer> toIdRole(Set<Role> roles);
     Set<Role> toRoles(Set<Integer> roles);

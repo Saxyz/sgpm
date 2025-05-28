@@ -5,8 +5,8 @@ import java.time.LocalTime;
 
 public record RegistroDto(
         Integer id,
-        String espacio,
-        String moto,
+        Integer espacio,
+        Integer moto,
         Integer vigilante,
         LocalDate fecha,
         LocalTime horaEntrada,

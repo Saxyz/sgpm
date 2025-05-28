@@ -8,11 +8,11 @@ public interface MotoService {
 
     MotoDto createMoto(MotoDto request);
 
-    MotoDto findMotoById(String id);
+    MotoDto findMotoById(Integer id);
 
     List<MotoDto> findAllMotos();
 
-    MotoDto updateMotoById(String id, MotoDto request);
+    MotoDto updateMotoById(Integer id, MotoDto request);
 
-    void deleteMotoById(String id);
+    void deleteMotoById(Integer id);
 }

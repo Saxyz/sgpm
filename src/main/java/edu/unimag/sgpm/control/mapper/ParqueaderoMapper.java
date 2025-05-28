@@ -20,11 +20,9 @@ public interface ParqueaderoMapper {
     @Mapping(source = "ruta", target = "imagen")
     Parqueadero toEntity(ParqueaderoDto dto);
 
-    @Mapping(source = "espacio", target = "idEspacio")
-    Espacio toEspacio(String espacio);
+    default Integer toInteger(Espacio espacio){
+        return espacio.getIdEspacio();
+    }
 
-    String toIdEspacio(Espacio espacio);
-
-    List<Espacio> toEspacios(List<String> espacios);
-    List<String> toIdEspacio(List<Espacio> espacios);
+    List<Integer> toListInteger(List<Espacio> espacios);
 }

@@ -14,7 +14,8 @@ import lombok.*;
 public class Espacio {
 
     @Id
-    private String idEspacio;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Integer idEspacio;
 
     @ManyToOne
     @JoinColumn(name = "idParqueadero", nullable = false)
@@ -23,4 +24,7 @@ public class Espacio {
     @ManyToOne
     @JoinColumn(name = "idEstado", nullable = false)
     private EstadoDeEspacio estado;
+
+    @Column(nullable = false)
+    private String numero;
 }

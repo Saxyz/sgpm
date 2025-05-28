@@ -13,7 +13,11 @@ import lombok.*;
 @Data
 public class Moto {
     @Id
-    private String idMoto;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Integer idMoto;
+
+    @Column(nullable = false)
+    private String placa;
 
     @ManyToOne
     @JoinColumn(name = "idUsuario", nullable = false)

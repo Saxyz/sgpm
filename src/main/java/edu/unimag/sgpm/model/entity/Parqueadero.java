@@ -22,7 +22,7 @@ public class Parqueadero {
     @Column(nullable = false, length = 250)
     private String nombre;
 
-    @OneToMany(mappedBy = "parqueadero", fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "parqueadero", fetch = FetchType.EAGER)
     private List<Espacio> espacios;
 
     @Column

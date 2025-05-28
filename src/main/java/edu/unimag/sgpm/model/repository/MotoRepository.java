@@ -8,9 +8,7 @@ import java.util.List;
 import java.util.Optional;
 
 @Repository
-public interface MotoRepository extends JpaRepository<Moto, String> {
-
-    Optional<Moto> findByIdMoto(String placa);
+public interface MotoRepository extends JpaRepository<Moto, Integer> {
 
     List<Moto> findByUsuarioIdUsuario(Integer id);
 }

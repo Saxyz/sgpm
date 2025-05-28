@@ -57,8 +57,9 @@ class MotoRepositoryTest {
         usuario1 = usuarioRepository.save(usuario1);
 
         Moto moto1 = Moto.builder()
-                .idMoto("MOTO1")
+                .idMoto(1)
                 .modelo("Honda CB190")
+                .placa("ATX-106")
                 .descripcion("Moto deportiva")
                 .imagen("honda.jpg")
                 .usuario(usuario1)
@@ -66,8 +67,9 @@ class MotoRepositoryTest {
                 .build();
 
         Moto moto2 = Moto.builder()
-                .idMoto("MOTO2")
+                .idMoto(2)
                 .modelo("Yamaha FZ")
+                .placa("ATX-107")
                 .descripcion("Moto urbana")
                 .imagen("yamaha.jpg")
                 .usuario(usuario1)
@@ -80,9 +82,9 @@ class MotoRepositoryTest {
 
     @Test
     void findByIdMoto() {
-        String idMoto = "MOTO1";
+        Integer idMoto = 1;
 
-        Optional<Moto> motoOpt = motoRepository.findByIdMoto(idMoto);
+        Optional<Moto> motoOpt = motoRepository.findById(idMoto);
 
         assertTrue(motoOpt.isPresent(), "La moto debería existir");
         Moto moto = motoOpt.get();

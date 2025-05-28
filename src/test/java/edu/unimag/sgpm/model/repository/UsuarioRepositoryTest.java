@@ -36,10 +36,7 @@ class UsuarioRepositoryTest {
     private ParqueaderoRepository parqueaderoRepository;
 
     private Role roleAdmin;
-    private Role roleEstudiante;
-    private Parqueadero parqueadero;
 
-    private Usuario usuario1;
     private Usuario usuario2;
 
     @BeforeEach
@@ -49,14 +46,14 @@ class UsuarioRepositoryTest {
         parqueaderoRepository.deleteAll();
 
         roleAdmin = roleRepository.save(new Role(null, ERole.ROLE_ADMINISTRADOR));
-        roleEstudiante = roleRepository.save(new Role(null, ERole.ROLE_ESTUDIANTE));
+        Role roleEstudiante = roleRepository.save(new Role(null, ERole.ROLE_ESTUDIANTE));
 
-        parqueadero = parqueaderoRepository.save(Parqueadero.builder()
+        Parqueadero parqueadero = parqueaderoRepository.save(Parqueadero.builder()
                 .nombre("Parqueadero Central")
                 .imagen("imagen.png")
                 .build());
 
-        usuario1 = usuarioRepository.save(Usuario.builder()
+        Usuario usuario1 = usuarioRepository.save(Usuario.builder()
                 .nombre("Juan")
                 .apellido("Perez")
                 .correo("juan.perez@example.com")

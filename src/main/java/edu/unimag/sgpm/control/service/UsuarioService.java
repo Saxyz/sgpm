@@ -1,14 +1,17 @@
 package edu.unimag.sgpm.control.service;
 
+import edu.unimag.sgpm.control.dto.SignUpRequest;
 import edu.unimag.sgpm.control.dto.UsuarioDto;
 import edu.unimag.sgpm.model.entity.Role;
-
+import edu.unimag.sgpm.model.entity.Usuario;
 import java.util.List;
 import java.util.Set;
 
 public interface UsuarioService {
 
-    UsuarioDto createUsuario(UsuarioDto request);
+    Usuario registrarEstudiante(SignUpRequest request);
+
+    UsuarioDto createUsuario(SignUpRequest request);
 
     UsuarioDto findUsuarioById(Integer id);
 

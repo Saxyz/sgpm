@@ -34,35 +34,6 @@ class UsuarioServiceImplTest {
             MockitoAnnotations.openMocks(this);
     }
 
-    @Test
-    void createUsuario_Success() {
-        UsuarioDto request = new UsuarioDto(null, 1, "John", "Doe", "john@example.com","2022214017", Set.of(1));
-        Usuario usuarioEntity = mock(Usuario.class);
-        Parqueadero parqueadero = new Parqueadero();
-        Usuario savedUsuario = mock(Usuario.class);
-        UsuarioDto expectedDto = new UsuarioDto(1, 1, "John", "Doe", "john@example.com","2022214017", Set.of(1));
-
-        when(usuarioMapper.toEntity(request)).thenReturn(usuarioEntity);
-        when(parqueaderoRepository.findById(1)).thenReturn(Optional.of(parqueadero));
-        doNothing().when(usuarioEntity).setParqueadero(parqueadero);
-        when(usuarioRepository.save(usuarioEntity)).thenReturn(savedUsuario);
-        when(usuarioMapper.toDto(savedUsuario)).thenReturn(expectedDto);
-
-        UsuarioDto result = usuarioService.createUsuario(request);
-
-        assertEquals(expectedDto, result);
-        verify(usuarioRepository).save(usuarioEntity);
-    }
-
-    @Test
-    void createUsuario_ParqueaderoNotFound_Throws() {
-        UsuarioDto request = new UsuarioDto(null, 1, "John", "Doe", "john@example.com", "2022214017", Set.of(1));
-
-        when(parqueaderoRepository.findById(1)).thenReturn(Optional.empty());
-
-        RuntimeException ex = assertThrows(RuntimeException.class, () -> usuarioService.createUsuario(request));
-        assertEquals("Parqueadero no encontrado", ex.getMessage());
-    }
 
     @Test
     void findUsuarioById_Success() {

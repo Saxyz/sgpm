@@ -35,17 +35,24 @@ public class UsuarioController {
 
     @PostMapping
     @PreAuthorize("hasAuthority('ROLE_ADMINISTRADOR')")
-    public ResponseEntity<UsuarioDto> createUsuario(@RequestBody SignUpRequest request) {
+    public ResponseEntity<?> createUsuario(@RequestBody SignUpRequest request) {
 
-        UsuarioDto usuario = usuarioService.createUsuario(request);
+        try {
+            UsuarioDto usuario = usuarioService.createUsuario(request);
 
-        URI location = ServletUriComponentsBuilder
-                .fromCurrentRequest()
-                .path("/{id}")
-                .buildAndExpand(usuario.id())
-                .toUri();
+            URI location = ServletUriComponentsBuilder
+                    .fromCurrentRequest()
+                    .path("/{id}")
+                    .buildAndExpand(usuario.id())
+                    .toUri();
 
-        return ResponseEntity.created(location).body(usuario);
+            return ResponseEntity.created(location).body(usuario);
+
+        } catch (RuntimeException e) {
+            return ResponseEntity
+                    .badRequest()
+                    .body(e.getMessage());
+        }
     }
 
     @PutMapping("/{id}")

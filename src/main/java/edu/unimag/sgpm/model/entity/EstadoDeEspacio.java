@@ -14,7 +14,7 @@ import lombok.Setter;
 @Table(name = "EstadosDeEspacio")
 public class EstadoDeEspacio {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer idEstado;
 
     @Column(nullable = false)

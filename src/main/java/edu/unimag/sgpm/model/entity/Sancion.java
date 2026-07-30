@@ -16,7 +16,7 @@ import java.time.LocalDate;
 public class Sancion {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer idSancion;
 
     @ManyToOne

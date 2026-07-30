@@ -13,7 +13,7 @@ import lombok.*;
 @Data
 public class EstadoDeReserva {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer idEstado;
 
     @Column(nullable = false)

@@ -16,7 +16,7 @@ import java.util.List;
 public class Parqueadero {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer idParqueadero;
 
     @Column(nullable = false, length = 250)

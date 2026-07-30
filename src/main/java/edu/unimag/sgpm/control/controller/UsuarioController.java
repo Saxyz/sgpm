@@ -1,10 +1,12 @@
 package edu.unimag.sgpm.control.controller;
 import edu.unimag.sgpm.control.dto.CambioContraseniaDto;
+import edu.unimag.sgpm.control.dto.SignUpRequest;
 import edu.unimag.sgpm.control.dto.UsuarioDto;
 import edu.unimag.sgpm.control.exceptions.EspacioNotFoundException;
 import edu.unimag.sgpm.control.service.UsuarioService;
 import jakarta.validation.constraints.NotNull;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
@@ -31,9 +33,26 @@ public class UsuarioController {
         return ResponseEntity.ok(usuario);
     }
 
-    @PostMapping()
-    public ResponseEntity<UsuarioDto> createUsuario(@RequestBody UsuarioDto usuario) {
-        return createNewUsuario(usuario);
+    @PostMapping
+    @PreAuthorize("hasAuthority('ROLE_ADMINISTRADOR')")
+    public ResponseEntity<?> createUsuario(@RequestBody SignUpRequest request) {
+
+        try {
+            UsuarioDto usuario = usuarioService.createUsuario(request);
+
+            URI location = ServletUriComponentsBuilder
+                    .fromCurrentRequest()
+                    .path("/{id}")
+                    .buildAndExpand(usuario.id())
+                    .toUri();
+
+            return ResponseEntity.created(location).body(usuario);
+
+        } catch (RuntimeException e) {
+            return ResponseEntity
+                    .badRequest()
+                    .body(e.getMessage());
+        }
     }
 
     @PutMapping("/{id}")

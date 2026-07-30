@@ -16,7 +16,7 @@ import java.time.LocalDateTime;
 public class Reserva {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer idReserva;
 
     @ManyToOne

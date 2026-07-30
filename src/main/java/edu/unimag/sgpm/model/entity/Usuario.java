@@ -18,7 +18,7 @@ import java.util.Set;
 @Table(name = "Usuarios")
 public class Usuario {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer idUsuario;
 
     @ManyToOne(fetch = FetchType.LAZY)
@@ -43,6 +43,11 @@ public class Usuario {
     @OneToMany(fetch = FetchType.EAGER)
     private List<Moto> motos;
 
-    @OneToMany(fetch = FetchType.EAGER)
+    @ManyToMany(fetch = FetchType.EAGER)
+    @JoinTable(
+            name = "usuarios_roles",
+            joinColumns = @JoinColumn(name = "usuario_id_usuario"),
+            inverseJoinColumns = @JoinColumn(name = "roles_id")
+    )
     private Set<Role> roles;
 }
